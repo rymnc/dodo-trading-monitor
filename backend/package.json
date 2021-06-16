@@ -1,0 +1,11 @@
+{
+  "name": "@dodo/tradmon-backend",
+  "version": "1.0.0",
+  "description": "Backend for the Trading Monitor",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rymnc <aaryamannchallani7@gmail.com> (https://aaryamann.codes/)",
+  "license": "MIT"
+}

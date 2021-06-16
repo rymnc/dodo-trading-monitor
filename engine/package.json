@@ -1,0 +1,11 @@
+{
+  "name": "@dodo/tradmon-engine",
+  "version": "1.0.0",
+  "description": "Core Engine for Trading Monitor",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "rymnc <aaryamannchallani7@gmail.com> (https://rymnc.com/)",
+  "license": "MIT"
+}

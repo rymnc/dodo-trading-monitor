@@ -1,0 +1,28 @@
+{
+  "name": "@dodo/tradmon-engine",
+  "version": "1.0.0",
+  "description": "Trading Monitor for DodoDex",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "workspaces": [
+    "backend",
+    "engine",
+    "ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+github.com/rymnc/dodo-tradmon-engine.git"
+  },
+  "author": "rymnc <aaryamannchallani7@gmail.com> (https://rymnc.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rymnc/dodo-tradmon-engine/issues"
+  },
+  "homepage": "https://github.com/rymnc/dodo-tradmon-engine#readme",
+  "devDependencies": {
+    "typescript": "^4.3.2"
+  }
+}
