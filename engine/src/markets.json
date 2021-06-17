@@ -1,0 +1,12 @@
+[
+    {
+        "id": "sBTC",
+        "address": "0xdeadbeef",
+        "tokenStandard": "ERC20" 
+    },
+    {
+        "id": "alBTC",
+        "address": "0xdeadbeee",
+        "tokenStandard": "ERC20"
+    }
+]
