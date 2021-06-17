@@ -27,15 +27,19 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       } else {
         switch (msg.type) {
           case "subscribe": {
+            // TODO
             break;
           }
           case "unsubscribe": {
+            // TODO
             break;
           }
           case "ping": {
+            // TODO
             break;
           }
           case "pong": {
+            // TODO
             break;
           }
           default: {
