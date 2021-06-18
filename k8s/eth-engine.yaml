@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  app: eth-engine
+  labels:
+    app: tradmon
+    unit: eth-engine
+spec:
+  selector:
+    matchLabels:
+      app: eth-engine
+  template:
+    metadata:
+      labels:
+        app: eth-engine
+    spec:
+      containers:
+      - name: eth-engine
+        image: gcr.io/dodo-zzz/eth-engine:latest
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        env:
+          - name: PORT
+            value: "3000"
+        ports:
+        - containerPort: 3000
