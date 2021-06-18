@@ -19,5 +19,9 @@
     "vite": "^2.3.7"
   },
   "author": "rymnc <aaryamannchallani7@gmail.com> (https://rymnc.com)",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "jquery": "1.9.1 - 3",
+    "popper.js": "^1.16.1"
+  }
 }

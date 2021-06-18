@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  app: tradmon-engine
+  labels:
+    app: tradmon
+    unit: engine
+spec:
+  selector:
+    matchLabels:
+      app: tradmon-engine
+  template:
+    metadata:
+      labels:
+        app: tradmon-engine
+    spec:
+      containers:
+      - name: tradmon-engine
+        image: gcr.io/dodo-zzz/tradmon-engine:latest
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        env:
+          - name: PORT
+            value: "3000"
+        ports:
+        - containerPort: 3000

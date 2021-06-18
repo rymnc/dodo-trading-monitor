@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  app: tradmon-ui
+  labels:
+    app: tradmon
+    unit: ui
+spec:
+  selector:
+    matchLabels:
+      app: tradmon-ui
+  template:
+    metadata:
+      labels:
+        app: tradmon-ui
+    spec:
+      containers:
+      - name: tradmon-ui
+        image: gcr.io/dodo-zzz/tradmon-ui:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 80

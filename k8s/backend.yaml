@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  app: tradmon-backend
+  labels:
+    app: tradmon
+    unit: backend
+spec:
+  selector:
+    matchLabels:
+      app: tradmon-backend
+  template:
+    metadata:
+      labels:
+        app: tradmon-backend
+    spec:
+      containers:
+      - name: tradmon-backend
+        image: gcr.io/dodo-zzz/tradmon-backend:latest
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        env:
+          - name: PORT
+            value: "3000"
+        ports:
+        - containerPort: 3000

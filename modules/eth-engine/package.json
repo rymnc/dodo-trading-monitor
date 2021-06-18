@@ -1,18 +1,14 @@
 {
-  "name": "@dodo/tradmon-engine",
+  "name": "@dodo/tradmon-eth-engine",
   "version": "1.0.0",
-  "description": "Trading Monitor for DodoDex",
-  "main": "index.js",
+  "description": "Ethereum Engine for Dodo Trading Monitor",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "private": true,
-  "workspaces": [
-    "modules/*"
-  ],
   "repository": {
     "type": "git",
-    "url": "git+github.com/rymnc/dodo-tradmon-engine.git"
+    "url": "git+https://github.com/rymnc/dodo-tradmon-engine.git"
   },
   "author": "rymnc <aaryamannchallani7@gmail.com> (https://rymnc.com/)",
   "license": "MIT",
@@ -21,6 +17,7 @@
   },
   "homepage": "https://github.com/rymnc/dodo-tradmon-engine#readme",
   "devDependencies": {
-    "typescript": "^4.3.2"
+    "@types/node": "^15.0.0",
+    "typescript": "^4.3.4"
   }
 }
