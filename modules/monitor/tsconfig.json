@@ -11,6 +11,7 @@
         "resolveJsonModule": true,
         "removeComments": true,
         "newLine": "lf",
+        "esModuleInterop": true,
         "noUnusedLocals": true,
         "noFallthroughCasesInSwitch": true,
         "useDefineForClassFields": true,
@@ -21,5 +22,5 @@
         ],
         "outDir": "dist"
       },
-    "include": ["lib/**/*.ts"]
+    "include": ["lib/**/*.ts", "test/*.ts","test/*.json"]
 }

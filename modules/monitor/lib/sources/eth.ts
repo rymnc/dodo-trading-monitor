@@ -10,6 +10,8 @@ import { Contract } from "ethers";
 interface SubscribePayload {
   contract: Contract;
   type: EventTypes;
+  eventName: string;
+  eventValue: string;
 }
 
 type Providers =
@@ -54,7 +56,7 @@ export class EthSource implements Source<SubscribePayload, any> {
     }
     // TODO: create static mapping of event types to related erc20 events
     // and pass it in as the event below
-    payload.contract.on("", (event) => {
+    payload.contract.on(payload.eventName, (event) => {
       // TODO: middleware to handle based on the event type above
       callback(event);
     });
