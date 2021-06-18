@@ -8,7 +8,7 @@ import "mocha";
 
 let provider: WebSocketProvider = new WebSocketProvider("ws://localhost:8545");
 let es: EthSource;
-describe("[source]", () => {
+describe("[eth source]", () => {
   beforeEach(() => {
     es = new EthSource({ id: 0, provider });
   });
