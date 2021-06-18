@@ -1,4 +1,4 @@
-import { Notification, NotificationPayload } from "../types";
+import { Notification, NotificationPayload } from "./types";
 import { createTransport, Transporter } from "nodemailer";
 
 interface EmailConstructor {
@@ -34,7 +34,7 @@ export class EmailNotification implements Notification<EmailPayload, any> {
     });
   }
 
-  getReceipts() {
+  async getReceipts() {
     return this.receipts;
   }
 
