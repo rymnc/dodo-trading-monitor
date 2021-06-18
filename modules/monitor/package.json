@@ -1,0 +1,21 @@
+{
+  "name": "@dodo/trading-monitor",
+  "version": "1.0.0",
+  "description": "Trading Monitor SDK",
+  "main": "lib/index.ts",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rymnc/dodo-tradmon-engine"
+  },
+  "author": "rymnc <aaryamannchallani7@gmail.com> (https://rymnc.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "nodemailer": "^6.6.2"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.2"
+  }
+}
