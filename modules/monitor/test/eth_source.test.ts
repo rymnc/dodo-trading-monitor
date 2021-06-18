@@ -37,5 +37,6 @@ describe("[eth source]", () => {
     await tx.wait();
     expect(status).to.eql(true);
     assert.calledOnce(callback);
+    expect(es.events).to.eql([{ address: contract.address, type: "largeBuy" }]);
   });
 });

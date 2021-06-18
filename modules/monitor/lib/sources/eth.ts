@@ -56,9 +56,11 @@ export class EthSource implements Source<SubscribePayload, any> {
     }
     // TODO: create static mapping of event types to related erc20 events
     // and pass it in as the event below
-    payload.contract.on(payload.eventName, (event) => {
+    payload.contract.on(payload.eventName, (...event) => {
       // TODO: middleware to handle based on the event type above
-      callback(event);
+      callback(
+        payload.contract.interface.parseLog(event[event.length - 1]).args
+      );
     });
     this.events.push({ address: payload.contract.address, type: payload.type });
     return true;
