@@ -13,6 +13,7 @@
   "author": "rymnc <aaryamannchallani7@gmail.com> (https://rymnc.com/)",
   "license": "MIT",
   "dependencies": {
+    "ethers": "^5.3.1",
     "nodemailer": "^6.6.2"
   },
   "devDependencies": {
