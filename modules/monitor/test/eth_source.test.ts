@@ -9,6 +9,7 @@ import "mocha";
 
 let provider: WebSocketProvider = new WebSocketProvider("ws://localhost:8545");
 let es: EthSource;
+
 describe("[eth source]", () => {
   before(async () => {
     spawnSync("npx", ["ganache-cli"]);
