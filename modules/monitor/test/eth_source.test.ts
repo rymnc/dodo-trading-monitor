@@ -1,3 +1,4 @@
+import { spawnSync } from "child_process";
 import { EthSource } from "@dodo/trading-monitor";
 import { WebSocketProvider } from "@ethersproject/providers";
 import { expect } from "chai";
@@ -9,6 +10,10 @@ import "mocha";
 let provider: WebSocketProvider = new WebSocketProvider("ws://localhost:8545");
 let es: EthSource;
 describe("[eth source]", () => {
+  before(async () => {
+    spawnSync("npx", ["ganache-cli"]);
+  });
+
   beforeEach(() => {
     es = new EthSource({ id: 0, provider });
   });
