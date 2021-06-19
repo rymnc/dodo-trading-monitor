@@ -1,4 +1,4 @@
-import { Sink, NotificationPayload } from "./types";
+import { Sink, SinkPayload } from "./types";
 import { createTransport, Transporter } from "nodemailer";
 
 interface EmailConstructor {
@@ -8,7 +8,7 @@ interface EmailConstructor {
   id: number;
 }
 
-interface EmailPayload extends NotificationPayload {
+export interface EmailPayload extends SinkPayload {
   from: string;
   to: string;
   subject: string;
