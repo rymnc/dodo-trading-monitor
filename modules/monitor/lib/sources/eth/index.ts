@@ -28,26 +28,9 @@ export class EthSource implements Source<SubscribePayload, any> {
     let handler: (...args: any[]) => boolean;
     switch (payload.type) {
       case "largeBuy":
-        handler = (args: EthersEvent) => {
-          // @ts-ignore
-          if (args[eventField] > payload.triggerValue) {
-            return true;
-          }
-          return false;
-        };
-        break;
       case "largeSell":
-        (args: EthersEvent) => {
-          // @ts-ignore
-          if (args[eventField] < payload.triggerValue) {
-            return true;
-          }
-          return false;
-        };
-        break;
       case "priceMovement":
-        (args: EthersEvent) => {
-          // @ts-ignore
+        handler = (args: EthersEvent) => {
           if (args[eventField] > payload.triggerValue) {
             return true;
           }

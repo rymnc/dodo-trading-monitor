@@ -31,6 +31,29 @@ describe("[eth source]", () => {
     expect(events).to.be.empty;
   });
 
+  it("Should subscribe to an event and not callback", async () => {
+    const { contract, abi } = await scaffoldContracts();
+    const callback = spy();
+    const status = await es.subscribe(
+      {
+        address: contract.address,
+        type: "largeSell",
+        eventName: "Transfer",
+        abi,
+        eventField: "value",
+        triggerValue: 200,
+      },
+      callback
+    );
+    const tx = await contract.transfer(AddressZero, 10);
+    await tx.wait();
+    expect(status).to.eql(true);
+    assert.neverCalledWith(callback);
+    expect(es.events).to.eql([
+      { address: contract.address, type: "largeSell" },
+    ]);
+  });
+
   it("Should subscribe to an event and callback", async () => {
     const { contract, abi } = await scaffoldContracts();
     const callback = spy();

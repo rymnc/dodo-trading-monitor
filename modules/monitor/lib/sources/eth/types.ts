@@ -6,8 +6,9 @@ import {
 } from "@ethersproject/providers";
 import { BigNumberish } from "ethers";
 import { EventTypes } from "../types";
+import { Result } from "@ethersproject/abi";
 
-export type EthersEvent = [index: string];
+export type EthersEvent = Result;
 
 export interface SubscribePayload {
   address: string;
