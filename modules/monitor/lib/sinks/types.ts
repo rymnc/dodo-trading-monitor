@@ -7,7 +7,7 @@ export interface NotificationPayload {
 /**
  * All notification channels must implement the given interface
  */
-export interface Notification<P, T> {
+export interface Sink<P, T> {
   name: string;
   id: number;
   send: (payload: P) => Promise<boolean>;

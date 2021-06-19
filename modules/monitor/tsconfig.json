@@ -9,6 +9,7 @@
         "noEmitOnError": true,
         "strict": true,
         "resolveJsonModule": true,
+        "suppressImplicitAnyIndexErrors": true,
         "removeComments": true,
         "newLine": "lf",
         "esModuleInterop": true,

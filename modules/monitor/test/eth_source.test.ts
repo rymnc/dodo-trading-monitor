@@ -27,10 +27,17 @@ describe("[eth source]", () => {
   });
 
   it("Should subscribe to an event and callback", async () => {
-    const contract = await scaffoldContracts();
+    const { contract, abi } = await scaffoldContracts();
     const callback = spy();
     const status = await es.subscribe(
-      { contract, type: "largeBuy", eventName: "Transfer", eventValue: "200" },
+      {
+        address: contract.address,
+        type: "largeBuy",
+        eventName: "Transfer",
+        abi,
+        eventField: "value",
+        triggerValue: 200,
+      },
       callback
     );
     const tx = await contract.transfer(AddressZero, 100000);
