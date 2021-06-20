@@ -4,6 +4,7 @@ import { SubscribePayload } from "../../sources/eth/types";
 import { EmailPayload } from "../../sinks/email/types";
 import { Middleware } from "../types";
 import { Event } from "../../sources/types";
+import { isAddress } from "@ethersproject/address";
 
 interface EthEmailConstructor {
   source: EthSource;
@@ -27,14 +28,17 @@ export class EthEmail
     this.to = obj.to;
   }
 
-  getContractUrl(address: string): string {
+  getAddressUrl(address: string): string {
     let url: string = `etherscan.io/address/${address}`;
     const networkName: string = this.source.provider.network.name;
     switch (networkName) {
       case "homestead":
         url = `https://${url}`;
         break;
-      case "ropsten" || "rinkeby" || "kovan" || "goerli":
+      case "ropsten":
+      case "rinkeby":
+      case "kovan":
+      case "goerli":
         url = `https://${networkName}.${url}`;
         break;
       default:
@@ -49,13 +53,24 @@ export class EthEmail
       Number.isNaN(Number(v))
     );
 
+    const coerceToUrlIfAddress = (value: string): string => {
+      if (isAddress(value)) {
+        return this.getAddressUrl(value);
+      }
+      return "";
+    };
+
     const tableOfDetails = keys
       .map((k) => {
-        return `<tr><td> ${k} </td> <td> ${event.details[k]} </td></tr>`;
+        const value = event.details[k];
+        const url = coerceToUrlIfAddress(value);
+        return `<tr><td> ${k} </td> <td> ${
+          url !== "" ? `<a href=${url}>${value}</a>` : value
+        } </td></tr>`;
       })
       .join("");
 
-    const contractUrl = this.getContractUrl(event.address);
+    const contractUrl = this.getAddressUrl(event.address);
 
     return {
       from: this.from,
@@ -64,7 +79,7 @@ export class EthEmail
       html: `<p> An Event has been triggered <br>
                 Contract: ${
                   contractUrl !== ""
-                    ? `<a href= ${contractUrl}> ${event.address}`
+                    ? `<a href= ${contractUrl}> ${event.address} </a>`
                     : event.address
                 } <br>
                 Event Type: ${event.type} <br>

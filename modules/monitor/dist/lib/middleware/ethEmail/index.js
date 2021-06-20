@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EthEmail = void 0;
+const address_1 = require("@ethersproject/address");
 class EthEmail {
     constructor(obj) {
         Object.defineProperty(this, "source", {
@@ -32,14 +33,17 @@ class EthEmail {
         this.from = obj.from;
         this.to = obj.to;
     }
-    getContractUrl(address) {
+    getAddressUrl(address) {
         let url = `etherscan.io/address/${address}`;
         const networkName = this.source.provider.network.name;
         switch (networkName) {
             case "homestead":
                 url = `https://${url}`;
                 break;
-            case "ropsten" || "rinkeby" || "kovan" || "goerli":
+            case "ropsten":
+            case "rinkeby":
+            case "kovan":
+            case "goerli":
                 url = `https://${networkName}.${url}`;
                 break;
             default:
@@ -49,19 +53,27 @@ class EthEmail {
     }
     async transform(event) {
         const keys = Object.keys(event.details).filter((v) => Number.isNaN(Number(v)));
+        const coerceToUrlIfAddress = (value) => {
+            if (address_1.isAddress(value)) {
+                return this.getAddressUrl(value);
+            }
+            return "";
+        };
         const tableOfDetails = keys
             .map((k) => {
-            return `<tr><td> ${k} </td> <td> ${event.details[k]} </td></tr>`;
+            const value = event.details[k];
+            const url = coerceToUrlIfAddress(value);
+            return `<tr><td> ${k} </td> <td> ${url !== "" ? `<a href=${url}>${value}</a>` : value} </td></tr>`;
         })
             .join("");
-        const contractUrl = this.getContractUrl(event.address);
+        const contractUrl = this.getAddressUrl(event.address);
         return {
             from: this.from,
             to: this.to,
             subject: `${event.type} Triggered`,
             html: `<p> An Event has been triggered <br>
                 Contract: ${contractUrl !== ""
-                ? `<a href= ${contractUrl}> ${event.address}`
+                ? `<a href= ${contractUrl}> ${event.address} </a>`
                 : event.address} <br>
                 Event Type: ${event.type} <br>
                 Contract Label: ${event.label} <br>
