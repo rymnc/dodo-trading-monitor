@@ -1,4 +1,5 @@
 import { EmailSink } from "./sinks";
 import { EthSource } from "./sources";
-export { EmailSink, EthSource };
+import { EthEmail } from "./middleware";
+export { EmailSink, EthSource, EthEmail };
 //# sourceMappingURL=index.d.ts.map
