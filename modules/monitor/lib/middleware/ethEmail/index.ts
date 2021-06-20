@@ -5,13 +5,7 @@ import { EmailPayload } from "../../sinks/email/types";
 import { Middleware } from "../types";
 import { Event } from "../../sources/types";
 import { isAddress } from "@ethersproject/address";
-
-interface EthEmailConstructor {
-  source: EthSource;
-  sink: EmailSink;
-  from: string;
-  to: string;
-}
+import { EthEmailConstructor } from "./types";
 
 export class EthEmail
   implements Middleware<SubscribePayload, any, EmailPayload, any>

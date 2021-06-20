@@ -4,12 +4,7 @@ import { SubscribePayload } from "../../sources/eth/types";
 import { EmailPayload } from "../../sinks/email/types";
 import { Middleware } from "../types";
 import { Event } from "../../sources/types";
-interface EthEmailConstructor {
-    source: EthSource;
-    sink: EmailSink;
-    from: string;
-    to: string;
-}
+import { EthEmailConstructor } from "./types";
 export declare class EthEmail implements Middleware<SubscribePayload, any, EmailPayload, any> {
     source: EthSource;
     sink: EmailSink;
@@ -20,5 +15,4 @@ export declare class EthEmail implements Middleware<SubscribePayload, any, Email
     transform(event: Event<any>): Promise<EmailPayload>;
     run(payload: SubscribePayload): void;
 }
-export {};
 //# sourceMappingURL=index.d.ts.map
