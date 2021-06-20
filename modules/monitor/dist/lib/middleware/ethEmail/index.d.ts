@@ -16,6 +16,7 @@ export declare class EthEmail implements Middleware<SubscribePayload, any, Email
     from: string;
     to: string;
     constructor(obj: EthEmailConstructor);
+    getContractUrl(address: string): string;
     transform(event: Event<any>): Promise<EmailPayload>;
     run(payload: SubscribePayload): void;
 }

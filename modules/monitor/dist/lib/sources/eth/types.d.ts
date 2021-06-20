@@ -10,6 +10,7 @@ export interface SubscribePayload {
     eventName: string;
     eventField: string;
     triggerValue: BigNumberish;
+    label: string;
 }
 export declare type Providers = WebSocketProvider | AlchemyWebSocketProvider | InfuraWebSocketProvider | FallbackProvider;
 export interface EthConstructor {

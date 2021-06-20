@@ -13,6 +13,7 @@ export interface Event<T> {
   type: EventTypes;
   address: string;
   details: T;
+  label: string;
 }
 
 export interface EventReceipts {

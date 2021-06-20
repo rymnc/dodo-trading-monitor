@@ -17,6 +17,7 @@ export interface SubscribePayload {
   eventName: string;
   eventField: string;
   triggerValue: BigNumberish;
+  label: string;
 }
 
 export type Providers =

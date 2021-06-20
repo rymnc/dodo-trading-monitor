@@ -32,6 +32,21 @@ class EthEmail {
         this.from = obj.from;
         this.to = obj.to;
     }
+    getContractUrl(address) {
+        let url = `etherscan.io/address/${address}`;
+        const networkName = this.source.provider.network.name;
+        switch (networkName) {
+            case "homestead":
+                url = `https://${url}`;
+                break;
+            case "ropsten" || "rinkeby" || "kovan" || "goerli":
+                url = `https://${networkName}.${url}`;
+                break;
+            default:
+                url = "";
+        }
+        return url;
+    }
     async transform(event) {
         const keys = Object.keys(event.details).filter((v) => Number.isNaN(Number(v)));
         const tableOfDetails = keys
@@ -39,13 +54,17 @@ class EthEmail {
             return `<tr><td> ${k} </td> <td> ${event.details[k]} </td></tr>`;
         })
             .join("");
+        const contractUrl = this.getContractUrl(event.address);
         return {
             from: this.from,
             to: this.to,
             subject: `${event.type} Triggered`,
             html: `<p> An Event has been triggered <br>
-                Contract: ${event.address} <br>
+                Contract: ${contractUrl !== ""
+                ? `<a href= ${contractUrl}> ${event.address}`
+                : event.address} <br>
                 Event Type: ${event.type} <br>
+                Contract Label: ${event.label} <br>
                 Details: <br>
               </p>
                 <table border="1" style='border-collapse:collapse;'>
@@ -64,6 +83,7 @@ class EthEmail {
             const slug = {
                 type: payload.type,
                 address: payload.address,
+                label: payload.label,
                 details: event,
             };
             const emailPayload = await boundTransform(slug);
