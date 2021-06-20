@@ -27,6 +27,5 @@ export type Providers =
 
 export interface EthConstructor {
   provider: Providers;
-  etherscanKey?: string;
   id: number;
 }

@@ -14,7 +14,6 @@ export interface SubscribePayload {
 export declare type Providers = WebSocketProvider | AlchemyWebSocketProvider | InfuraWebSocketProvider | FallbackProvider;
 export interface EthConstructor {
     provider: Providers;
-    etherscanKey?: string;
     id: number;
 }
 //# sourceMappingURL=types.d.ts.map
