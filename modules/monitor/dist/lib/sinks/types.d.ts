@@ -1,4 +1,4 @@
-export interface NotificationPayload {
+export interface SinkPayload {
     to?: string;
     from?: string;
     data?: any;
