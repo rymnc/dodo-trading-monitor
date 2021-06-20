@@ -1,20 +1,6 @@
-import { Sink, SinkPayload } from "./types";
+import { Sink } from "../types";
 import { createTransport, Transporter } from "nodemailer";
-
-interface EmailConstructor {
-  email: string;
-  pass: string;
-  host: string;
-  id: number;
-}
-
-export interface EmailPayload extends SinkPayload {
-  from: string;
-  to: string;
-  subject: string;
-  text?: string;
-  html?: string;
-}
+import { EmailConstructor, EmailPayload } from "./types";
 
 export class EmailSink implements Sink<EmailPayload, any> {
   transport: Transporter;

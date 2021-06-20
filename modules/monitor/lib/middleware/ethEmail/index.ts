@@ -1,7 +1,7 @@
 import { EthSource } from "../../sources";
 import { EmailSink } from "../../sinks";
 import { SubscribePayload } from "../../sources/eth/types";
-import { EmailPayload } from "../../sinks/email";
+import { EmailPayload } from "../../sinks/email/types";
 import { Middleware } from "../types";
 import { Event } from "../../sources/types";
 
