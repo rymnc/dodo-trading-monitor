@@ -27,6 +27,8 @@ export class EmailSink implements Sink<EmailPayload, any> {
     this.receipts = [];
     this.transport = createTransport({
       host: obj.host,
+      port: process.env.NODE_ENV === "test" ? 587 : 465,
+      secure: process.env.NODE_ENV === "test" ? false : true,
       auth: {
         user: obj.email,
         pass: obj.pass,
