@@ -7,6 +7,9 @@ import { Event } from "../../sources/types";
 import { isAddress } from "@ethersproject/address";
 import { EthEmailConstructor } from "./types";
 
+/**
+ * Eth-Email Monitor Class
+ */
 export class EthEmail
   implements Middleware<SubscribePayload, any, EmailPayload, any>
 {
@@ -15,6 +18,10 @@ export class EthEmail
   from: string;
   to: string;
 
+  /**
+   * Constructor
+   * @param obj EthEmailConstructor
+   */
   constructor(obj: EthEmailConstructor) {
     this.source = obj.source;
     this.sink = obj.sink;
@@ -22,6 +29,13 @@ export class EthEmail
     this.to = obj.to;
   }
 
+  /**
+   * Checks if input value is an address, if so
+   * it generates the etherscan url based on the
+   * provider network
+   * @param address Ethereum address
+   * @return string
+   */
   getAddressUrl(address: string): string {
     let url: string = `etherscan.io/address/${address}`;
     const networkName: string = this.source.provider.network.name;
@@ -41,6 +55,11 @@ export class EthEmail
     return url;
   }
 
+  /**
+   * Transforms the Ethereum Event into EmailPayload
+   * @param event Event<any>
+   * @returns EmailPayload
+   */
   async transform(event: Event<any>): Promise<EmailPayload> {
     // Get the string keys for the event
     const keys = Object.keys(event.details).filter((v) =>
@@ -54,6 +73,7 @@ export class EthEmail
       return "";
     };
 
+    // Create a table of parameters thrown by the event
     const tableOfDetails = keys
       .map((k) => {
         const value = event.details[k];
@@ -91,6 +111,12 @@ export class EthEmail
     };
   }
 
+  /**
+   * Main Runner function for the monitor
+   * It is imperative to bind functions to the correct context,
+   * if using them in callback
+   * @param payload SubscribePayload
+   */
   run(payload: SubscribePayload) {
     const boundTransform = this.transform.bind(this);
     this.source.subscribe(payload, async (event) => {

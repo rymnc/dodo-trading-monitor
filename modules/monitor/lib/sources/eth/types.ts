@@ -10,6 +10,9 @@ import { Result } from "@ethersproject/abi";
 
 export type EthersEvent = Result;
 
+/**
+ * Subscription Payload for the Event
+ */
 export interface SubscribePayload {
   address: string;
   type: EventTypes;
@@ -20,12 +23,18 @@ export interface SubscribePayload {
   label: string;
 }
 
+/**
+ * For realtime access, only websocket providers must be allowed
+ */
 export type Providers =
   | WebSocketProvider
   | AlchemyWebSocketProvider
   | InfuraWebSocketProvider
   | FallbackProvider;
 
+/**
+ * Constructor interface for the Eth Source
+ */
 export interface EthConstructor {
   provider: Providers;
   id: number;

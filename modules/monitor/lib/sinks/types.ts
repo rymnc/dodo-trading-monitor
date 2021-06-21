@@ -1,3 +1,6 @@
+/**
+ * All Payload implementations **MUST** extend this
+ */
 export interface SinkPayload {
   to?: string;
   from?: string;
@@ -5,7 +8,7 @@ export interface SinkPayload {
 }
 
 /**
- * All notification channels must implement the given interface
+ * All notification channels **MUST** implement the given interface
  */
 export interface Sink<P, T> {
   name: string;

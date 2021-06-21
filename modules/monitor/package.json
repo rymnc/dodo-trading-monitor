@@ -8,7 +8,8 @@
     "pretest": "yarn ganache -q &",
     "posttest": "pkill -f ganache-cli",
     "build": "npx tsc --build",
-    "ganache": "npx ganache-cli"
+    "ganache": "npx ganache-cli",
+    "docgen": "npx typedoc --includes lib --out docs lib"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "ganache-cli": "^6.12.2",
     "mocha": "^9.0.1",
     "sinon": "^11.1.1",
-    "ts-node": "^10.0.0"
+    "ts-node": "^10.0.0",
+    "typedoc": "^0.21.0"
   }
 }

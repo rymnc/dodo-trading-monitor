@@ -1,3 +1,6 @@
+/**
+ * Event Types
+ */
 export type EventTypes =
   | "largeSell"
   | "largeBuy"
@@ -7,7 +10,7 @@ export type EventTypes =
   | "arbitrage";
 
 /**
- * All Events must implement this interface
+ * All Events **MUST** implement this interface
  */
 export interface Event<T> {
   type: EventTypes;
@@ -16,6 +19,9 @@ export interface Event<T> {
   label: string;
 }
 
+/**
+ * All Event receipts **MUST** implement this interface
+ */
 export interface EventReceipts {
   type: EventTypes;
   address: string;
