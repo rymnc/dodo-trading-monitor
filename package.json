@@ -4,7 +4,8 @@
   "description": "Trading Monitor for DodoDex",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docgen": "yarn workspace @dodo/trading-monitor docgen && mv modules/monitor/docs/ docs && echo -ne 'docs.rymnc.com' > docs/CNAME"
   },
   "private": true,
   "workspaces": [
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/rymnc/dodo-tradmon-engine#readme",
   "devDependencies": {
+    "typedoc": "^0.21.0",
     "typescript": "^4.3.2"
   }
 }
