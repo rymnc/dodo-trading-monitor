@@ -5,7 +5,7 @@
   "main": "dist/lib/index.js",
   "scripts": {
     "test": "mocha -r ts-node/register test/*.test.ts --exit --timeout 0 || true",
-    "pretest": "yarn ganache -q &",
+    "pretest": "yarn ganache > /dev/null 2>&1 &",
     "posttest": "pkill -f ganache-cli",
     "build": "npx tsc --build",
     "ganache": "npx ganache-cli",
