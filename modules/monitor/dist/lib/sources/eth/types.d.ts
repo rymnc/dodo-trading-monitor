@@ -3,11 +3,13 @@ import { BigNumberish } from "ethers";
 import { EventTypes } from "../types";
 import { Result } from "@ethersproject/abi";
 export declare type EthersEvent = Result;
-export interface SubscribePayload {
+export interface CommonPayload {
     address: string;
-    type: EventTypes;
     abi: any[];
     eventName: string;
+}
+export interface SubscribePayload extends CommonPayload {
+    type: EventTypes;
     eventField: string;
     triggerValue: BigNumberish;
     label: string;
