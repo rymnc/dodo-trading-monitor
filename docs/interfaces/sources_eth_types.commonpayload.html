@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>EmailPayload | @dodo/trading-monitor</title>
+	<title>CommonPayload | @dodo/trading-monitor</title>
 	<meta name="description" content="Documentation for @dodo/trading-monitor">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,34 +55,27 @@
 					<a href="../modules.html">@dodo/trading-monitor</a>
 				</li>
 				<li>
-					<a href="../modules/sinks_email_types.html">sinks/email/types</a>
+					<a href="../modules/sources_eth_types.html">sources/eth/types</a>
 				</li>
 				<li>
-					<a href="sinks_email_types.emailpayload.html">EmailPayload</a>
+					<a href="sources_eth_types.commonpayload.html">CommonPayload</a>
 				</li>
 			</ul>
-			<h1>Interface EmailPayload</h1>
+			<h1>Interface CommonPayload</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Interface for the email payload</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="sinks_types.sinkpayload.html" class="tsd-signature-type" data-tsd-kind="Interface">SinkPayload</a>
+						<span class="target">CommonPayload</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">EmailPayload</span>
+								<a href="sources_eth_types.subscribepayload.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribePayload</a>
 							</li>
 						</ul>
 					</li>
@@ -95,12 +88,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="sinks_email_types.emailpayload.html#data" class="tsd-kind-icon">data</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite"><a href="sinks_email_types.emailpayload.html#from" class="tsd-kind-icon">from</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sinks_email_types.emailpayload.html#html" class="tsd-kind-icon">html</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sinks_email_types.emailpayload.html#subject" class="tsd-kind-icon">subject</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sinks_email_types.emailpayload.html#text" class="tsd-kind-icon">text</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite"><a href="sinks_email_types.emailpayload.html#to" class="tsd-kind-icon">to</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sources_eth_types.commonpayload.html#abi" class="tsd-kind-icon">abi</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sources_eth_types.commonpayload.html#address" class="tsd-kind-icon">address</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sources_eth_types.commonpayload.html#eventname" class="tsd-kind-icon">event<wbr>Name</a></li>
 							</ul>
 						</section>
 					</div>
@@ -108,66 +98,33 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="data" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> data</h3>
-					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="abi" class="tsd-anchor"></a>
+					<h3>abi</h3>
+					<div class="tsd-signature tsd-kind-icon">abi<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="sinks_types.sinkpayload.html">SinkPayload</a>.<a href="sinks_types.sinkpayload.html#data">data</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sinks/types.ts#L7">sinks/types.ts:7</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
-					<a name="from" class="tsd-anchor"></a>
-					<h3>from</h3>
-					<div class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Overrides <a href="sinks_types.sinkpayload.html">SinkPayload</a>.<a href="sinks_types.sinkpayload.html#from">from</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sinks/email/types.ts#L17">sinks/email/types.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/types.ts#L15">sources/eth/types.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="html" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> html</h3>
-					<div class="tsd-signature tsd-kind-icon">html<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="address" class="tsd-anchor"></a>
+					<h3>address</h3>
+					<div class="tsd-signature tsd-kind-icon">address<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sinks/email/types.ts#L21">sinks/email/types.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/types.ts#L14">sources/eth/types.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="subject" class="tsd-anchor"></a>
-					<h3>subject</h3>
-					<div class="tsd-signature tsd-kind-icon">subject<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="eventname" class="tsd-anchor"></a>
+					<h3>event<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">event<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sinks/email/types.ts#L19">sinks/email/types.ts:19</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="text" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> text</h3>
-					<div class="tsd-signature tsd-kind-icon">text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sinks/email/types.ts#L20">sinks/email/types.ts:20</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
-					<a name="to" class="tsd-anchor"></a>
-					<h3>to</h3>
-					<div class="tsd-signature tsd-kind-icon">to<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Overrides <a href="sinks_types.sinkpayload.html">SinkPayload</a>.<a href="sinks_types.sinkpayload.html#to">to</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sinks/email/types.ts#L18">sinks/email/types.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/types.ts#L16">sources/eth/types.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -200,7 +157,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/sinks_email.html">sinks/email</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/sinks_email_types.html">sinks/email/types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -212,7 +169,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/sources_eth.html">sources/eth</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/sources_eth_types.html">sources/eth/types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -225,36 +182,36 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="sinks_email_types.emailconstructor.html" class="tsd-kind-icon">Email<wbr>Constructor</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="sinks_email_types.emailpayload.html" class="tsd-kind-icon">Email<wbr>Payload</a>
+						<a href="sources_eth_types.commonpayload.html" class="tsd-kind-icon">Common<wbr>Payload</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="sinks_email_types.emailpayload.html#data" class="tsd-kind-icon">data</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
-								<a href="sinks_email_types.emailpayload.html#from" class="tsd-kind-icon">from</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="sources_eth_types.commonpayload.html#abi" class="tsd-kind-icon">abi</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sinks_email_types.emailpayload.html#html" class="tsd-kind-icon">html</a>
+								<a href="sources_eth_types.commonpayload.html#address" class="tsd-kind-icon">address</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sinks_email_types.emailpayload.html#subject" class="tsd-kind-icon">subject</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sinks_email_types.emailpayload.html#text" class="tsd-kind-icon">text</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
-								<a href="sinks_email_types.emailpayload.html#to" class="tsd-kind-icon">to</a>
+								<a href="sources_eth_types.commonpayload.html#eventname" class="tsd-kind-icon">event<wbr>Name</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="sources_eth_types.ethconstructor.html" class="tsd-kind-icon">Eth<wbr>Constructor</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="sources_eth_types.subscribepayload.html" class="tsd-kind-icon">Subscribe<wbr>Payload</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/sources_eth_types.html#ethersevent" class="tsd-kind-icon">Ethers<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/sources_eth_types.html#providers" class="tsd-kind-icon">Providers</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

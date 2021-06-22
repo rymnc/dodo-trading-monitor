@@ -10,14 +10,17 @@ import { Result } from "@ethersproject/abi";
 
 export type EthersEvent = Result;
 
+export interface CommonPayload {
+  address: string;
+  abi: any[];
+  eventName: string;
+}
+
 /**
  * Subscription Payload for the Event
  */
-export interface SubscribePayload {
-  address: string;
+export interface SubscribePayload extends CommonPayload {
   type: EventTypes;
-  abi: any[];
-  eventName: string;
   eventField: string;
   triggerValue: BigNumberish;
   label: string;

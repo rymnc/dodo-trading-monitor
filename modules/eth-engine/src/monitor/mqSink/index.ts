@@ -45,10 +45,7 @@ export class MqSink implements Sink<MqPayload, MqReceipts> {
   async send(payload: MqPayload): Promise<boolean> {
     try {
       const serialized = JSON.stringify(payload);
-      await this.client.publish(
-        `${payload.type}_${payload.address}`,
-        serialized
-      );
+      await this.client.publish(payload.uuid, serialized);
       await this.client.rpush("receipts", serialized);
       return true;
     } catch (e) {

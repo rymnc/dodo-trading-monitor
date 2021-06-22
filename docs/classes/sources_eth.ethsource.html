@@ -102,6 +102,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sources_eth.ethsource.html#callbacks" class="tsd-kind-icon">callbacks</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sources_eth.ethsource.html#events" class="tsd-kind-icon">events</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sources_eth.ethsource.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sources_eth.ethsource.html#name" class="tsd-kind-icon">name</a></li>
@@ -111,6 +112,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sources_eth.ethsource.html#handlecallbackpush" class="tsd-kind-icon">handle<wbr>Callback<wbr>Push</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sources_eth.ethsource.html#subscribe" class="tsd-kind-icon">subscribe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sources_eth.ethsource.html#subscribedevents" class="tsd-kind-icon">subscribed<wbr>Events</a></li>
 							</ul>
@@ -130,7 +132,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/23f64c8/modules/monitor/lib/sources/eth/index.ts#L17">sources/eth/index.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/index.ts#L21">sources/eth/index.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -155,12 +157,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="callbacks" class="tsd-anchor"></a>
+					<h3>callbacks</h3>
+					<div class="tsd-signature tsd-kind-icon">callbacks<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/index.ts#L21">sources/eth/index.ts:21</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="events" class="tsd-anchor"></a>
 					<h3>events</h3>
 					<div class="tsd-signature tsd-kind-icon">events<span class="tsd-signature-symbol">:</span> <a href="../interfaces/sources_types.eventreceipts.html" class="tsd-signature-type" data-tsd-kind="Interface">EventReceipts</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/23f64c8/modules/monitor/lib/sources/eth/index.ts#L17">sources/eth/index.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/index.ts#L19">sources/eth/index.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -171,7 +183,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/sources_types.source.html">Source</a>.<a href="../interfaces/sources_types.source.html#id">id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/23f64c8/modules/monitor/lib/sources/eth/index.ts#L15">sources/eth/index.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/index.ts#L17">sources/eth/index.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -182,7 +194,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/sources_types.source.html">Source</a>.<a href="../interfaces/sources_types.source.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/23f64c8/modules/monitor/lib/sources/eth/index.ts#L16">sources/eth/index.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/index.ts#L18">sources/eth/index.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -192,13 +204,57 @@
 					<div class="tsd-signature tsd-kind-icon">provider<span class="tsd-signature-symbol">:</span> <a href="../modules/sources_eth_types.html#providers" class="tsd-signature-type" data-tsd-kind="Type alias">Providers</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/23f64c8/modules/monitor/lib/sources/eth/index.ts#L14">sources/eth/index.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/index.ts#L16">sources/eth/index.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="handlecallbackpush" class="tsd-anchor"></a>
+					<h3>handle<wbr>Callback<wbr>Push</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Callback<wbr>Push<span class="tsd-signature-symbol">(</span>payloadHash<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/index.ts#L34">sources/eth/index.ts:34</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>payloadHash: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <span class="tsd-signature-type">any</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="subscribe" class="tsd-anchor"></a>
 					<h3>subscribe</h3>
@@ -210,7 +266,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of Source.subscribe</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/23f64c8/modules/monitor/lib/sources/eth/index.ts#L35">sources/eth/index.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/index.ts#L52">sources/eth/index.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -267,7 +323,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of Source.subscribedEvents</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/23f64c8/modules/monitor/lib/sources/eth/index.ts#L74">sources/eth/index.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2a6551b/modules/monitor/lib/sources/eth/index.ts#L97">sources/eth/index.ts:97</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -343,6 +399,9 @@
 								<a href="sources_eth.ethsource.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sources_eth.ethsource.html#callbacks" class="tsd-kind-icon">callbacks</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="sources_eth.ethsource.html#events" class="tsd-kind-icon">events</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -353,6 +412,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="sources_eth.ethsource.html#provider" class="tsd-kind-icon">provider</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sources_eth.ethsource.html#handlecallbackpush" class="tsd-kind-icon">handle<wbr>Callback<wbr>Push</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="sources_eth.ethsource.html#subscribe" class="tsd-kind-icon">subscribe</a>

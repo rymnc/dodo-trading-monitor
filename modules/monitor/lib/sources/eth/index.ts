@@ -4,8 +4,10 @@ import {
   Providers,
   SubscribePayload,
   EthersEvent,
+  CommonPayload,
 } from "./types";
 import { Contract } from "ethers";
+import hash from "object-hash";
 
 /**
  * Eth Source Class
@@ -15,6 +17,8 @@ export class EthSource implements Source<SubscribePayload, any> {
   id: number;
   name: string = "ethereum";
   events: EventReceipts[];
+  // Hashmap of callbacks
+  callbacks: Map<string, Array<(event: any) => void>>;
 
   /**
    * Constructor
@@ -24,6 +28,19 @@ export class EthSource implements Source<SubscribePayload, any> {
     this.provider = obj.provider;
     this.id = obj.id;
     this.events = [];
+    this.callbacks = new Map();
+  }
+
+  handleCallbackPush(
+    payloadHash: string,
+    callback: (event: any) => void
+  ): void {
+    const callbacks = this.callbacks.get(payloadHash);
+    if (typeof callbacks === "undefined") {
+      this.callbacks.set(payloadHash, [callback]);
+    } else {
+      this.callbacks.set(payloadHash, [...callbacks, callback]);
+    }
   }
 
   /**
@@ -36,6 +53,8 @@ export class EthSource implements Source<SubscribePayload, any> {
     payload: SubscribePayload,
     callback: (event: any) => void
   ): Promise<boolean> {
+    const payloadHash = hash(payload as CommonPayload);
+    this.handleCallbackPush(payloadHash, callback);
     const { address, abi, eventName, eventField, type } = payload;
     const contract = new Contract(address, abi, this.provider);
     let handler: (...args: any[]) => boolean;
@@ -53,14 +72,18 @@ export class EthSource implements Source<SubscribePayload, any> {
       default:
         throw new Error("Invalid event type for EthSource");
     }
-    // TODO: create static mapping of event types to related erc20 events
-    // and pass it in as the event below
+
     contract.on(eventName, async (...event) => {
       const args = event[event.length - 1].args;
-      if (handler(args)) {
-        await callback(
-          contract.interface.parseLog(event[event.length - 1]).args
-        );
+      const callbackArray = this.callbacks.get(payloadHash);
+      if (callbackArray) {
+        for (const callback of callbackArray) {
+          if (handler(args)) {
+            await callback(
+              contract.interface.parseLog(event[event.length - 1]).args
+            );
+          }
+        }
       }
     });
     this.events.push({ address, type });

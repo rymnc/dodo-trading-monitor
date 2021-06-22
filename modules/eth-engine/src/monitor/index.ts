@@ -1,5 +1,4 @@
 import { hostname } from "os";
-import { v4 } from "uuid";
 import {
   EthSource,
   Event,
@@ -9,6 +8,7 @@ import {
 import { MqSink } from "./mqSink";
 import { MqPayload } from "./mqSink/types";
 import { EthMqConstructor } from "./types";
+import hash from "object-hash";
 
 const now = (): number => Math.floor(Date.now() / 1000);
 
@@ -37,7 +37,8 @@ export class EthMq
       data: sanitizedDetails,
       timestamp: now(),
       type: event.type,
-      uuid: v4(),
+      // uuid set later
+      uuid: "",
     };
   }
 
@@ -51,6 +52,7 @@ export class EthMq
         details: event,
       };
       const mqPayload = await boundTransform(slug);
+      mqPayload.uuid = hash(payload);
       await this.sink.send(mqPayload);
     });
   }
