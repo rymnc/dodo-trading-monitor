@@ -8,10 +8,12 @@ export interface CommonPayload {
     abi: any[];
     eventName: string;
 }
-export interface SubscribePayload extends CommonPayload {
+export interface Constraints {
     type: EventTypes;
     eventField: string;
     triggerValue: BigNumberish;
+}
+export interface SubscribePayload extends CommonPayload, Constraints {
     label: string;
 }
 export declare type Providers = WebSocketProvider | AlchemyWebSocketProvider | InfuraWebSocketProvider | FallbackProvider;

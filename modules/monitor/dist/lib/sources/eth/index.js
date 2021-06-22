@@ -6,6 +6,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EthSource = void 0;
 const ethers_1 = require("ethers");
 const object_hash_1 = __importDefault(require("object-hash"));
+const sanitizePayload = (payload) => {
+    return {
+        abi: payload.abi,
+        address: payload.address,
+        eventName: payload.eventName,
+    };
+};
+const getConstraints = (payload) => {
+    return {
+        eventField: payload.eventField,
+        triggerValue: payload.triggerValue,
+        type: payload.type,
+    };
+};
 class EthSource {
     constructor(obj) {
         Object.defineProperty(this, "provider", {
@@ -43,45 +57,40 @@ class EthSource {
         this.events = [];
         this.callbacks = new Map();
     }
-    handleCallbackPush(payloadHash, callback) {
+    handleCallbackPush(payloadHash, callback, constraints) {
         const callbacks = this.callbacks.get(payloadHash);
         if (typeof callbacks === "undefined") {
-            this.callbacks.set(payloadHash, [callback]);
+            this.callbacks.set(payloadHash, [{ run: callback, constraints }]);
             return true;
         }
         else {
-            this.callbacks.set(payloadHash, [...callbacks, callback]);
+            this.callbacks.set(payloadHash, [
+                ...callbacks,
+                { run: callback, constraints },
+            ]);
             return false;
         }
     }
-    async subscribe(payload, callback) {
-        const payloadHash = object_hash_1.default(payload);
-        const isNew = this.handleCallbackPush(payloadHash, callback);
-        const { address, abi, eventName, eventField, type } = payload;
-        const contract = new ethers_1.Contract(address, abi, this.provider);
-        let handler;
-        switch (payload.type) {
-            case "largeBuy":
-            case "largeSell":
-            case "priceMovement":
-                handler = (args) => {
-                    if (args[eventField] > payload.triggerValue) {
-                        return true;
-                    }
-                    return false;
-                };
-                break;
-            default:
-                throw new Error("Invalid event type for EthSource");
+    constraintCheck(args, constraints) {
+        if (args[constraints.eventField] > constraints.triggerValue) {
+            return true;
         }
+        return false;
+    }
+    async subscribe(payload, callback) {
+        const payloadHash = object_hash_1.default(sanitizePayload(payload));
+        const constraints = getConstraints(payload);
+        const isNew = this.handleCallbackPush(payloadHash, callback, constraints);
+        const { address, abi, eventName, type } = payload;
+        const contract = new ethers_1.Contract(address, abi, this.provider);
         if (isNew) {
             contract.on(eventName, async (...event) => {
                 const args = event[event.length - 1].args;
                 const callbackArray = this.callbacks.get(payloadHash);
                 if (callbackArray) {
                     for (const callback of callbackArray) {
-                        if (handler(args)) {
-                            await callback(contract.interface.parseLog(event[event.length - 1]).args);
+                        if (this.constraintCheck(args, callback.constraints)) {
+                            await callback.run(contract.interface.parseLog(event[event.length - 1]).args);
                         }
                     }
                 }

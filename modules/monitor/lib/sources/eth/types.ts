@@ -16,13 +16,16 @@ export interface CommonPayload {
   eventName: string;
 }
 
-/**
- * Subscription Payload for the Event
- */
-export interface SubscribePayload extends CommonPayload {
+export interface Constraints {
   type: EventTypes;
   eventField: string;
   triggerValue: BigNumberish;
+}
+
+/**
+ * Subscription Payload for the Event
+ */
+export interface SubscribePayload extends CommonPayload, Constraints {
   label: string;
 }
 

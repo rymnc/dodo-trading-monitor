@@ -5,10 +5,26 @@ import {
   SubscribePayload,
   EthersEvent,
   CommonPayload,
+  Constraints,
 } from "./types";
 import { Contract } from "ethers";
 import hash from "object-hash";
 
+const sanitizePayload = (payload: SubscribePayload): CommonPayload => {
+  return {
+    abi: payload.abi,
+    address: payload.address,
+    eventName: payload.eventName,
+  };
+};
+
+const getConstraints = (payload: SubscribePayload): Constraints => {
+  return {
+    eventField: payload.eventField,
+    triggerValue: payload.triggerValue,
+    type: payload.type,
+  };
+};
 /**
  * Eth Source Class
  */
@@ -18,7 +34,10 @@ export class EthSource implements Source<SubscribePayload, any> {
   name: string = "ethereum";
   events: EventReceipts[];
   // Hashmap of callbacks
-  callbacks: Map<string, Array<(event: any) => void>>;
+  callbacks: Map<
+    string,
+    Array<{ constraints: Constraints; run: (event: any) => void }>
+  >;
 
   /**
    * Constructor
@@ -33,16 +52,27 @@ export class EthSource implements Source<SubscribePayload, any> {
 
   handleCallbackPush(
     payloadHash: string,
-    callback: (event: any) => void
+    callback: (event: any) => void,
+    constraints: Constraints
   ): boolean {
     const callbacks = this.callbacks.get(payloadHash);
     if (typeof callbacks === "undefined") {
-      this.callbacks.set(payloadHash, [callback]);
+      this.callbacks.set(payloadHash, [{ run: callback, constraints }]);
       return true;
     } else {
-      this.callbacks.set(payloadHash, [...callbacks, callback]);
+      this.callbacks.set(payloadHash, [
+        ...callbacks,
+        { run: callback, constraints },
+      ]);
       return false;
     }
+  }
+
+  constraintCheck(args: EthersEvent, constraints: Constraints): boolean {
+    if (args[constraints.eventField] > constraints.triggerValue) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -55,25 +85,11 @@ export class EthSource implements Source<SubscribePayload, any> {
     payload: SubscribePayload,
     callback: (event: any) => void
   ): Promise<boolean> {
-    const payloadHash = hash(payload as CommonPayload);
-    const isNew = this.handleCallbackPush(payloadHash, callback);
-    const { address, abi, eventName, eventField, type } = payload;
+    const payloadHash = hash(sanitizePayload(payload));
+    const constraints = getConstraints(payload);
+    const isNew = this.handleCallbackPush(payloadHash, callback, constraints);
+    const { address, abi, eventName, type } = payload;
     const contract = new Contract(address, abi, this.provider);
-    let handler: (...args: any[]) => boolean;
-    switch (payload.type) {
-      case "largeBuy":
-      case "largeSell":
-      case "priceMovement":
-        handler = (args: EthersEvent) => {
-          if (args[eventField] > payload.triggerValue) {
-            return true;
-          }
-          return false;
-        };
-        break;
-      default:
-        throw new Error("Invalid event type for EthSource");
-    }
 
     if (isNew) {
       contract.on(eventName, async (...event) => {
@@ -81,8 +97,8 @@ export class EthSource implements Source<SubscribePayload, any> {
         const callbackArray = this.callbacks.get(payloadHash);
         if (callbackArray) {
           for (const callback of callbackArray) {
-            if (handler(args)) {
-              await callback(
+            if (this.constraintCheck(args, callback.constraints)) {
+              await callback.run(
                 contract.interface.parseLog(event[event.length - 1]).args
               );
             }

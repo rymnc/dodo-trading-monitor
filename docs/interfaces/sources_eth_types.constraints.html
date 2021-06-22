@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>EmailConstructor | @dodo/trading-monitor</title>
+	<title>Constraints | @dodo/trading-monitor</title>
 	<meta name="description" content="Documentation for @dodo/trading-monitor">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,31 +55,29 @@
 					<a href="../modules.html">@dodo/trading-monitor</a>
 				</li>
 				<li>
-					<a href="../modules/sinks_email_types.html">sinks/email/types</a>
+					<a href="../modules/sources_eth_types.html">sources/eth/types</a>
 				</li>
 				<li>
-					<a href="sinks_email_types.emailconstructor.html">EmailConstructor</a>
+					<a href="sources_eth_types.constraints.html">Constraints</a>
 				</li>
 			</ul>
-			<h1>Interface EmailConstructor</h1>
+			<h1>Interface Constraints</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Interface for the Email Sink Constructor</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">EmailConstructor</span>
+						<span class="target">Constraints</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="sources_eth_types.subscribepayload.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribePayload</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -90,10 +88,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sinks_email_types.emailconstructor.html#email" class="tsd-kind-icon">email</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sinks_email_types.emailconstructor.html#host" class="tsd-kind-icon">host</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sinks_email_types.emailconstructor.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sinks_email_types.emailconstructor.html#pass" class="tsd-kind-icon">pass</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sources_eth_types.constraints.html#eventfield" class="tsd-kind-icon">event<wbr>Field</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sources_eth_types.constraints.html#triggervalue" class="tsd-kind-icon">trigger<wbr>Value</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sources_eth_types.constraints.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -102,42 +99,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="email" class="tsd-anchor"></a>
-					<h3>email</h3>
-					<div class="tsd-signature tsd-kind-icon">email<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="eventfield" class="tsd-anchor"></a>
+					<h3>event<wbr>Field</h3>
+					<div class="tsd-signature tsd-kind-icon">event<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/267d7d5/modules/monitor/lib/sinks/email/types.ts#L7">sinks/email/types.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/267d7d5/modules/monitor/lib/sources/eth/types.ts#L21">sources/eth/types.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="host" class="tsd-anchor"></a>
-					<h3>host</h3>
-					<div class="tsd-signature tsd-kind-icon">host<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="triggervalue" class="tsd-anchor"></a>
+					<h3>trigger<wbr>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">trigger<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">BigNumberish</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/267d7d5/modules/monitor/lib/sinks/email/types.ts#L9">sinks/email/types.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/267d7d5/modules/monitor/lib/sources/eth/types.ts#L22">sources/eth/types.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../modules/sources_types.html#eventtypes" class="tsd-signature-type" data-tsd-kind="Type alias">EventTypes</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/267d7d5/modules/monitor/lib/sinks/email/types.ts#L10">sinks/email/types.ts:10</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="pass" class="tsd-anchor"></a>
-					<h3>pass</h3>
-					<div class="tsd-signature tsd-kind-icon">pass<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/267d7d5/modules/monitor/lib/sinks/email/types.ts#L8">sinks/email/types.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/267d7d5/modules/monitor/lib/sources/eth/types.ts#L20">sources/eth/types.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -170,7 +157,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/sinks_email.html">sinks/email</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/sinks_email_types.html">sinks/email/types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -182,7 +169,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/sources_eth.html">sources/eth</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/sources_eth_types.html">sources/eth/types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -195,29 +182,38 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="sources_eth_types.commonpayload.html" class="tsd-kind-icon">Common<wbr>Payload</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="sinks_email_types.emailconstructor.html" class="tsd-kind-icon">Email<wbr>Constructor</a>
+						<a href="sources_eth_types.constraints.html" class="tsd-kind-icon">Constraints</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sinks_email_types.emailconstructor.html#email" class="tsd-kind-icon">email</a>
+								<a href="sources_eth_types.constraints.html#eventfield" class="tsd-kind-icon">event<wbr>Field</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sinks_email_types.emailconstructor.html#host" class="tsd-kind-icon">host</a>
+								<a href="sources_eth_types.constraints.html#triggervalue" class="tsd-kind-icon">trigger<wbr>Value</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sinks_email_types.emailconstructor.html#id" class="tsd-kind-icon">id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sinks_email_types.emailconstructor.html#pass" class="tsd-kind-icon">pass</a>
+								<a href="sources_eth_types.constraints.html#type" class="tsd-kind-icon">type</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="sinks_email_types.emailpayload.html" class="tsd-kind-icon">Email<wbr>Payload</a>
+						<a href="sources_eth_types.ethconstructor.html" class="tsd-kind-icon">Eth<wbr>Constructor</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="sources_eth_types.subscribepayload.html" class="tsd-kind-icon">Subscribe<wbr>Payload</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/sources_eth_types.html#ethersevent" class="tsd-kind-icon">Ethers<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/sources_eth_types.html#providers" class="tsd-kind-icon">Providers</a>
 					</li>
 				</ul>
 			</nav>
