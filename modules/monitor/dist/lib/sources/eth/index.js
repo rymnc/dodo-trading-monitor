@@ -47,14 +47,16 @@ class EthSource {
         const callbacks = this.callbacks.get(payloadHash);
         if (typeof callbacks === "undefined") {
             this.callbacks.set(payloadHash, [callback]);
+            return true;
         }
         else {
             this.callbacks.set(payloadHash, [...callbacks, callback]);
+            return false;
         }
     }
     async subscribe(payload, callback) {
         const payloadHash = object_hash_1.default(payload);
-        this.handleCallbackPush(payloadHash, callback);
+        const isNew = this.handleCallbackPush(payloadHash, callback);
         const { address, abi, eventName, eventField, type } = payload;
         const contract = new ethers_1.Contract(address, abi, this.provider);
         let handler;
@@ -72,17 +74,19 @@ class EthSource {
             default:
                 throw new Error("Invalid event type for EthSource");
         }
-        contract.on(eventName, async (...event) => {
-            const args = event[event.length - 1].args;
-            const callbackArray = this.callbacks.get(payloadHash);
-            if (callbackArray) {
-                for (const callback of callbackArray) {
-                    if (handler(args)) {
-                        await callback(contract.interface.parseLog(event[event.length - 1]).args);
+        if (isNew) {
+            contract.on(eventName, async (...event) => {
+                const args = event[event.length - 1].args;
+                const callbackArray = this.callbacks.get(payloadHash);
+                if (callbackArray) {
+                    for (const callback of callbackArray) {
+                        if (handler(args)) {
+                            await callback(contract.interface.parseLog(event[event.length - 1]).args);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
         this.events.push({ address, type });
         return true;
     }

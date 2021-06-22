@@ -34,12 +34,14 @@ export class EthSource implements Source<SubscribePayload, any> {
   handleCallbackPush(
     payloadHash: string,
     callback: (event: any) => void
-  ): void {
+  ): boolean {
     const callbacks = this.callbacks.get(payloadHash);
     if (typeof callbacks === "undefined") {
       this.callbacks.set(payloadHash, [callback]);
+      return true;
     } else {
       this.callbacks.set(payloadHash, [...callbacks, callback]);
+      return false;
     }
   }
 
@@ -54,7 +56,7 @@ export class EthSource implements Source<SubscribePayload, any> {
     callback: (event: any) => void
   ): Promise<boolean> {
     const payloadHash = hash(payload as CommonPayload);
-    this.handleCallbackPush(payloadHash, callback);
+    const isNew = this.handleCallbackPush(payloadHash, callback);
     const { address, abi, eventName, eventField, type } = payload;
     const contract = new Contract(address, abi, this.provider);
     let handler: (...args: any[]) => boolean;
@@ -73,19 +75,21 @@ export class EthSource implements Source<SubscribePayload, any> {
         throw new Error("Invalid event type for EthSource");
     }
 
-    contract.on(eventName, async (...event) => {
-      const args = event[event.length - 1].args;
-      const callbackArray = this.callbacks.get(payloadHash);
-      if (callbackArray) {
-        for (const callback of callbackArray) {
-          if (handler(args)) {
-            await callback(
-              contract.interface.parseLog(event[event.length - 1]).args
-            );
+    if (isNew) {
+      contract.on(eventName, async (...event) => {
+        const args = event[event.length - 1].args;
+        const callbackArray = this.callbacks.get(payloadHash);
+        if (callbackArray) {
+          for (const callback of callbackArray) {
+            if (handler(args)) {
+              await callback(
+                contract.interface.parseLog(event[event.length - 1]).args
+              );
+            }
           }
         }
-      }
-    });
+      });
+    }
     this.events.push({ address, type });
     return true;
   }
