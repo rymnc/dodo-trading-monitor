@@ -13,7 +13,7 @@ const cleanPayload: any =  {
     type: 'arbitrage'
 }
 
-describe.only('[payload validator]', () => {
+describe('[eth payload validator]', () => {
     it('Should return true for valid object', () => {
         expect(payloadValidator(cleanPayload)).to.eql(true)
     })
