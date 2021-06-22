@@ -1,3 +1,4 @@
+export declare const eventTypes: string[];
 export declare type EventTypes = "largeSell" | "largeBuy" | "attack" | "priceMovement" | "largeSwap" | "arbitrage";
 export interface Event<T> {
     type: EventTypes;

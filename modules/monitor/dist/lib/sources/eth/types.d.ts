@@ -16,6 +16,7 @@ export interface Constraints {
 export interface SubscribePayload extends CommonPayload, Constraints {
     label: string;
 }
+export declare const payloadValidator: (p: any) => boolean;
 export declare type Providers = WebSocketProvider | AlchemyWebSocketProvider | InfuraWebSocketProvider | FallbackProvider;
 export interface EthConstructor {
     provider: Providers;

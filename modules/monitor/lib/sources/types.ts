@@ -1,3 +1,4 @@
+export const eventTypes = ["largeSell", "largeBuy", "attack", "priceMovement", "largeSwap", "arbitrage"]
 /**
  * Event Types
  */

@@ -5,7 +5,7 @@ import { memoize } from "lodash";
 import { EthSource } from "@dodo/trading-monitor";
 import { WebSocketProvider } from "@ethersproject/providers";
 import { MqSink } from "./monitor/mqSink";
-import { SubscribePayload } from "@dodo/trading-monitor";
+import { SubscribePayload, payloadValidator } from "@dodo/trading-monitor";
 
 const getEthSource = memoize((): EthSource => {
   if (process.env.WEBSOCKET_URL) {
@@ -36,9 +36,17 @@ async function main() {
   const ethMq = new EthMq({ source, sink });
   const redisConnection = sink.client.nodeRedis;
   await redisConnection.subscribe("eth-engine");
-  redisConnection.on("message", (message: string) => {
-    const messageBody: SubscribePayload = JSON.parse(message);
-    ethMq.run(messageBody);
+  redisConnection.on("message", (_: string, message: string) => {
+    try {
+      const messageBody: SubscribePayload = JSON.parse(message);
+      if(payloadValidator(messageBody)) {
+        ethMq.run(messageBody);
+      } else {
+        throw new Error()
+      }
+    } catch (e) {
+      console.error("[Main] received invalid subscribe request");
+    }
   });
 }
 
