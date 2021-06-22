@@ -4,7 +4,7 @@
   "description": "Trading Monitor SDK",
   "main": "dist/lib/index.js",
   "scripts": {
-    "test": "mocha -r ts-node/register test/*.test.ts --exit --timeout 0",
+    "test": "mocha -r ts-node/register test/*.test.ts --exit --timeout 0 || true",
     "pretest": "yarn ganache -q &",
     "posttest": "pkill -f ganache-cli",
     "build": "npx tsc --build",
