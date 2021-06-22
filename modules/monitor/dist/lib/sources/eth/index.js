@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EthSource = void 0;
 const ethers_1 = require("ethers");
 const object_hash_1 = __importDefault(require("object-hash"));
+const lodash_1 = require("lodash");
 const sanitizePayload = (payload) => {
     return {
         abi: payload.abi,
@@ -56,6 +57,10 @@ class EthSource {
         this.id = obj.id;
         this.events = [];
         this.callbacks = new Map();
+        this.getContract = lodash_1.memoize(this.getContract);
+    }
+    getContract(address, abi) {
+        return new ethers_1.Contract(address, abi || [], this.provider);
     }
     handleCallbackPush(payloadHash, callback, constraints) {
         const callbacks = this.callbacks.get(payloadHash);
@@ -82,8 +87,8 @@ class EthSource {
         const constraints = getConstraints(payload);
         const isNew = this.handleCallbackPush(payloadHash, callback, constraints);
         const { address, abi, eventName, type } = payload;
-        const contract = new ethers_1.Contract(address, abi, this.provider);
         if (isNew) {
+            const contract = this.getContract(address, abi);
             contract.on(eventName, async (...event) => {
                 const args = event[event.length - 1].args;
                 const callbackArray = this.callbacks.get(payloadHash);
@@ -98,6 +103,38 @@ class EthSource {
         }
         this.events.push({ address, type });
         return true;
+    }
+    async unsubscribe(payload) {
+        const payloadHash = object_hash_1.default(sanitizePayload(payload));
+        const constraints = getConstraints(payload);
+        const callbackArray = this.callbacks.get(payloadHash);
+        let popped = false;
+        if (callbackArray) {
+            const handlerIdx = callbackArray.findIndex((v) => {
+                return lodash_1.isEqual(constraints, v.constraints);
+            });
+            if (handlerIdx !== -1) {
+                delete callbackArray[handlerIdx];
+                const newCbArray = callbackArray.filter((v) => v !== undefined);
+                this.callbacks.set(payloadHash, [...newCbArray]);
+                popped = true;
+            }
+            else {
+                throw new Error("[EthSource] Cannot unsubscribe to unknown subscription");
+            }
+        }
+        else {
+            throw new Error("[EthSource] Cannot unsubscribe to unknown event");
+        }
+        if (popped) {
+            const contract = this.getContract(payload.address);
+            const listeners = contract.listeners(payload.eventName);
+            contract.off(payload.eventName, listeners[0]);
+            return true;
+        }
+        else {
+            throw new Error("[EthSource] callback was not popped");
+        }
     }
     async subscribedEvents() {
         return this.events;

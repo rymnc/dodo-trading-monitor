@@ -9,6 +9,7 @@ import {
 } from "./types";
 import { Contract } from "ethers";
 import hash from "object-hash";
+import { isEqual, memoize } from "lodash";
 
 const sanitizePayload = (payload: SubscribePayload): CommonPayload => {
   return {
@@ -48,6 +49,11 @@ export class EthSource implements Source<SubscribePayload, any> {
     this.id = obj.id;
     this.events = [];
     this.callbacks = new Map();
+    this.getContract = memoize(this.getContract);
+  }
+
+  getContract(address: string, abi?: any[]): Contract {
+    return new Contract(address, abi || [], this.provider);
   }
 
   handleCallbackPush(
@@ -89,9 +95,9 @@ export class EthSource implements Source<SubscribePayload, any> {
     const constraints = getConstraints(payload);
     const isNew = this.handleCallbackPush(payloadHash, callback, constraints);
     const { address, abi, eventName, type } = payload;
-    const contract = new Contract(address, abi, this.provider);
 
     if (isNew) {
+      const contract = this.getContract(address, abi);
       contract.on(eventName, async (...event) => {
         const args = event[event.length - 1].args;
         const callbackArray = this.callbacks.get(payloadHash);
@@ -108,6 +114,39 @@ export class EthSource implements Source<SubscribePayload, any> {
     }
     this.events.push({ address, type });
     return true;
+  }
+
+  async unsubscribe(payload: SubscribePayload): Promise<boolean> {
+    const payloadHash = hash(sanitizePayload(payload));
+    const constraints = getConstraints(payload);
+    const callbackArray = this.callbacks.get(payloadHash);
+    let popped: boolean = false;
+    if (callbackArray) {
+      const handlerIdx = callbackArray.findIndex((v) => {
+        return isEqual(constraints, v.constraints);
+      });
+      if (handlerIdx !== -1) {
+        delete callbackArray[handlerIdx];
+        const newCbArray = callbackArray.filter((v) => v !== undefined);
+        this.callbacks.set(payloadHash, [...newCbArray]);
+        popped = true;
+        //return true;
+      } else {
+        throw new Error(
+          "[EthSource] Cannot unsubscribe to unknown subscription"
+        );
+      }
+    } else {
+      throw new Error("[EthSource] Cannot unsubscribe to unknown event");
+    }
+    if (popped) {
+      const contract = this.getContract(payload.address);
+      const listeners = contract.listeners(payload.eventName);
+      contract.off(payload.eventName, listeners[0]);
+      return true;
+    } else {
+      throw new Error("[EthSource] callback was not popped");
+    }
   }
 
   /**

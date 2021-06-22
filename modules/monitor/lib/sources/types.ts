@@ -35,4 +35,5 @@ export interface Source<T, P> {
     callback: (event: Event<P>) => void
   ) => Promise<boolean>;
   subscribedEvents: () => Promise<EventReceipts[]>;
+  unsubscribe: (payload: T) => Promise<boolean>;
 }

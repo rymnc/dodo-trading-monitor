@@ -1,4 +1,4 @@
-import { EthSource } from "@dodo/trading-monitor";
+import { EthSource, SubscribePayload } from "@dodo/trading-monitor";
 import { WebSocketProvider } from "@ethersproject/providers";
 import { expect } from "chai";
 import { spy, restore, assert } from "sinon";
@@ -160,5 +160,36 @@ describe("[eth source]", () => {
     const callbacks = es.callbacks.get(pHash);
     expect(callbacks).to.not.be.undefined;
     expect(callbacks?.length).to.eql(3);
+  });
+
+  it("Should handle unsubscription", async () => {
+    const { contract, abi } = await scaffoldContracts();
+    const callback = spy();
+    const payload: SubscribePayload = {
+      address: contract.address,
+      type: "largeBuy",
+      eventName: "Transfer",
+      abi,
+      eventField: "value",
+      triggerValue: 200,
+      label: "Tether Token",
+    };
+    await es.subscribe(payload, callback);
+
+    const tx = await contract.transfer(AddressZero, 100000);
+    await tx.wait();
+
+    expect(callback.callCount).to.eql(1);
+
+    const status = await es.unsubscribe(payload);
+
+    expect(status).to.eql(true);
+
+    const tx2 = await contract.transfer(AddressZero, 100000);
+    await tx2.wait();
+
+    expect(callback.callCount).to.eql(1);
+    const esContract = es.getContract(contract.address);
+    expect(esContract.listenerCount()).to.eql(0);
   });
 });

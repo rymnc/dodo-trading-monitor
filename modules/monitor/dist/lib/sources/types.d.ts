@@ -14,5 +14,6 @@ export interface Source<T, P> {
     id: number;
     subscribe: (payload: T, callback: (event: Event<P>) => void) => Promise<boolean>;
     subscribedEvents: () => Promise<EventReceipts[]>;
+    unsubscribe: (payload: T) => Promise<boolean>;
 }
 //# sourceMappingURL=types.d.ts.map
