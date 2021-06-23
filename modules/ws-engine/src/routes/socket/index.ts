@@ -1,6 +1,7 @@
 import { FastifyPluginAsync } from "fastify";
 import { ReceiveMessage, SendMessage, isValid, now, SendType } from "./schemas";
 import hash from "object-hash";
+import { getRedis } from "../../plugins/redis";
 
 const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.get("/", { websocket: true }, (conn, request) => {
@@ -33,23 +34,27 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
           case "subscribe": {
             if (msg.channel) {
               const payloadHash = hash(msg.channel);
-              const status = await fastify.redis.nodeRedis.subscribe(
-                payloadHash
-              );
+              const redis = getRedis(payloadHash);
+              const status = await redis.subscribe(payloadHash);
               if (status) {
-                await fastify.redis.publish("eth-engine-sub", payloadHash);
-                fastify.redis.nodeRedis.on(
-                  "message",
-                  async (channel, message) => {
-                    if (channel === payloadHash) {
-                      await send(
-                        socket,
-                        { ...JSON.parse(message), channel: payloadHash },
-                        "update"
-                      );
-                    }
-                  }
+                await fastify.redis.publish(
+                  "eth-engine-sub",
+                  JSON.stringify(msg.channel)
                 );
+                await send(
+                  socket,
+                  { data: "subscribed", channel: payloadHash },
+                  "update"
+                );
+                redis.on("message", async (channel, message) => {
+                  if (channel === payloadHash) {
+                    await send(
+                      socket,
+                      { ...JSON.parse(message), channel: payloadHash },
+                      "update"
+                    );
+                  }
+                });
               } else {
                 await send(socket, "could not subscribe to events", "error");
               }
@@ -59,11 +64,13 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
           case "unsubscribe": {
             if (msg.channel) {
               const payloadHash = hash(msg.channel);
-              const status = await fastify.redis.nodeRedis.unsubscribe(
-                payloadHash
-              );
+              const redis = getRedis(payloadHash);
+              const status = await redis.unsubscribe(payloadHash);
               if (status) {
-                await fastify.redis.publish("eth-engine-unsub", payloadHash);
+                await fastify.redis.publish(
+                  "eth-engine-unsub",
+                  JSON.stringify(msg.channel)
+                );
                 await send(socket, { data: "unsubscribed" }, "update");
               } else {
                 await send(socket, `invalid subscription`, "error");

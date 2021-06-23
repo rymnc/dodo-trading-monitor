@@ -50,6 +50,7 @@ async function main() {
       const messageBody: SubscribePayload = JSON.parse(message);
       if (payloadValidator(messageBody)) {
         if (channel === "eth-engine-sub") {
+          console.log("Subscribing to :", messageBody);
           ethMq.run(messageBody);
         } else {
           ethMq.source.unsubscribe(messageBody);

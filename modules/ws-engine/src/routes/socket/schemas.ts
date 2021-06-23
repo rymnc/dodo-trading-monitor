@@ -1,5 +1,5 @@
 import marketsJson from "../../markets.json";
-import {payloadValidator, SubscribePayload} from "@dodo/trading-monitor"
+import { payloadValidator, SubscribePayload } from "@dodo/trading-monitor";
 
 export const markets = new Map<string, RawMarketType>(
   marketsJson.map((i: MarketType) => [
@@ -39,14 +39,11 @@ export const isValid = (msg: any): string | boolean => {
   if (!("type" in msg)) {
     return "type is required";
   } else if (["subscribe", "unsubscribe"].includes(msg.type)) {
-    if (!("channel" in msg) || !("market" in msg)) {
-      return "channel/market is required";
+    if (!("channel" in msg)) {
+      return "channel is required";
     } else {
-      if (!payloadValidator(msg.channel)){
-        return `channel is invalid`
-      }
-      if (!markets.has(msg.market)) {
-        return `market must be one of ${Array.from(markets.keys()).join(",")}`;
+      if (!payloadValidator(msg.channel)) {
+        return `channel is invalid`;
       }
       return true;
     }

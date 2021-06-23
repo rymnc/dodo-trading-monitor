@@ -1,5 +1,5 @@
 import { providers, Contract, ContractFactory } from "ethers";
-import artifact from "./artifact.json";
+const artifact = require("./artifact.json");
 
 export const scaffoldContracts = async (): Promise<{
   contract: Contract;

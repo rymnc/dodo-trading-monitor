@@ -47,6 +47,7 @@ export class MqSink implements Sink<MqPayload, MqReceipts> {
       await this.client.rpush("receipts", serialized);
       return true;
     } catch (e) {
+      console.log(e);
       return false;
     }
   }
