@@ -130,7 +130,7 @@
 					<div class="tsd-signature tsd-kind-icon">run<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>payload<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SourcePayload</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/af58103/modules/monitor/lib/middleware/types.ts#L16">middleware/types.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/a3dc5ca/modules/monitor/lib/middleware/types.ts#L28">middleware/types.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -142,6 +142,11 @@
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Function that runs the middleware</p>
+											</div>
+										</div>
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
@@ -161,9 +166,14 @@
 					<div class="tsd-signature tsd-kind-icon">sink<span class="tsd-signature-symbol">:</span> <a href="sinks_types.sink.html" class="tsd-signature-type" data-tsd-kind="Interface">Sink</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SinkPayload</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SinkReceipt</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/af58103/modules/monitor/lib/middleware/types.ts#L14">middleware/types.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/a3dc5ca/modules/monitor/lib/middleware/types.ts#L20">middleware/types.ts:20</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Sink that receives events</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="source" class="tsd-anchor"></a>
@@ -171,9 +181,14 @@
 					<div class="tsd-signature tsd-kind-icon">source<span class="tsd-signature-symbol">:</span> <a href="sources_types.source.html" class="tsd-signature-type" data-tsd-kind="Interface">Source</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SourcePayload</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SourceEvent</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/af58103/modules/monitor/lib/middleware/types.ts#L13">middleware/types.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/a3dc5ca/modules/monitor/lib/middleware/types.ts#L16">middleware/types.ts:16</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Source that emits events</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="transform" class="tsd-anchor"></a>
@@ -181,7 +196,7 @@
 					<div class="tsd-signature tsd-kind-icon">transform<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="sources_types.event.html" class="tsd-signature-type" data-tsd-kind="Interface">Event</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SourceEvent</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SinkPayload</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/af58103/modules/monitor/lib/middleware/types.ts#L15">middleware/types.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/a3dc5ca/modules/monitor/lib/middleware/types.ts#L24">middleware/types.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -193,6 +208,11 @@
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Function that transforms the source event to the sink payload</p>
+											</div>
+										</div>
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
