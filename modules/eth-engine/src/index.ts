@@ -6,6 +6,7 @@ import { EthSource } from "@dodo/trading-monitor";
 import { WebSocketProvider } from "@ethersproject/providers";
 import { MqSink } from "./monitor/mqSink";
 import { SubscribePayload, payloadValidator } from "@dodo/trading-monitor";
+import { getRedis } from "./monitor/redis";
 
 const getEthSource = memoize((): EthSource => {
   if (process.env.WEBSOCKET_URL) {
@@ -33,27 +34,35 @@ const getMqSink = memoize((): MqSink => {
 async function main() {
   const source = getEthSource();
   const sink = getMqSink();
+  console.log("Initialized Source and Sink");
   const ethMq = new EthMq({ source, sink });
-  const redisConnection = sink.client.nodeRedis;
-  await redisConnection.subscribe("eth-engine-sub", "eth-engine-unsub");
+  const redisConnection = getRedis();
+  redisConnection.on("error", (e) => console.error(e));
+  console.log("Initialized Redis Connection");
+  try {
+    await redisConnection.subscribe("eth-engine-sub", "eth-engine-unsub");
+  } catch (e) {
+    console.error(e);
+  }
+  console.log("Subscribed to relevant channels");
   redisConnection.on("message", (channel: string, message: string) => {
-      try {
-        const messageBody: SubscribePayload = JSON.parse(message);
-        if(payloadValidator(messageBody)) {
-          if(channel === 'eth-engine-sub') {
-            ethMq.run(messageBody);
-          } else {
-            ethMq.source.unsubscribe(messageBody)
-          }          
+    try {
+      const messageBody: SubscribePayload = JSON.parse(message);
+      if (payloadValidator(messageBody)) {
+        if (channel === "eth-engine-sub") {
+          ethMq.run(messageBody);
         } else {
-          throw new Error()
+          ethMq.source.unsubscribe(messageBody);
         }
-      } catch (e) {
-        console.error("[Main] received invalid subscribe request");
+      } else {
+        throw new Error();
       }
+    } catch (e) {
+      console.error("[Main] received invalid subscribe request");
+    }
   });
 }
 
-const runner = () => {
-  main().catch(console.error).then(runner);
-};
+main()
+  .catch((e) => console.error(e))
+  .then(() => console.log("Initialized Eth Engine"));

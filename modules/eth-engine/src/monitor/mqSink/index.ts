@@ -1,6 +1,7 @@
 import { Sink } from "@dodo/trading-monitor";
 import { MqPayload, MqSinkConstructor, MqReceipts } from "./types";
-import { createNodeRedisClient, WrappedNodeRedisClient } from "handy-redis";
+import { Redis } from "ioredis";
+import { getRedis } from "../redis";
 
 /**
  * Redis Mq Sink
@@ -9,17 +10,14 @@ export class MqSink implements Sink<MqPayload, MqReceipts> {
   id: number;
   name: string = "redisMq";
   receipts: MqReceipts[];
-  client: WrappedNodeRedisClient;
+  client: Redis;
 
   /**
    * Constructor
    * @param obj MqSinkConstructor
    */
   constructor(obj: MqSinkConstructor) {
-    this.client = createNodeRedisClient({
-      host: obj.host,
-      port: obj.port,
-    });
+    this.client = getRedis();
     this.id = obj.id;
     this.receipts = [];
   }
