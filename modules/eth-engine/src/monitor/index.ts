@@ -12,17 +12,35 @@ import hash from "object-hash";
 
 const now = (): number => Math.floor(Date.now() / 1000);
 
+/**
+ * Eth Mq Class
+ */
 export class EthMq
   implements Middleware<SubscribePayload, any, MqPayload, MqPayload>
 {
+  /**
+   * Eth Source
+   */
   source: EthSource;
+  /**
+   * Mq Sink
+   */
   sink: MqSink;
 
+  /**
+   * Constructor
+   * @param obj EthMqConstructor
+   */
   constructor(obj: EthMqConstructor) {
     this.source = obj.source;
     this.sink = obj.sink;
   }
 
+  /**
+   * Transforms the source event to sink payload
+   * @param event Event<any>
+   * @returns MqPayload
+   */
   async transform(event: Event<any>): Promise<MqPayload> {
     const keys = Object.keys(event.details).filter((v) =>
       Number.isNaN(Number(v))
@@ -42,6 +60,10 @@ export class EthMq
     };
   }
 
+  /**
+   * Main runner function
+   * @param payload SubscribePayload
+   */
   run(payload: SubscribePayload) {
     const boundTransform = this.transform.bind(this);
     this.source.subscribe(payload, async (event) => {

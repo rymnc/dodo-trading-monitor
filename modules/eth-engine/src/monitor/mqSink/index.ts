@@ -7,9 +7,21 @@ import { getRedis } from "../redis";
  * Redis Mq Sink
  */
 export class MqSink implements Sink<MqPayload, MqReceipts> {
+  /**
+   * Id of Sink
+   */
   id: number;
+  /**
+   * Name of sink
+   */
   name: string = "redisMq";
+  /**
+   * Receipts for sink dump
+   */
   receipts: MqReceipts[];
+  /**
+   * Redis client
+   */
   client: Redis;
 
   /**

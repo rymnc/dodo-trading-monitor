@@ -8,6 +8,9 @@ import { MqSink } from "./monitor/mqSink";
 import { SubscribePayload, payloadValidator } from "@dodo/trading-monitor";
 import { getRedis } from "./monitor/redis";
 
+/**
+ * Memoizes the eth source getter
+ */
 const getEthSource = memoize((): EthSource => {
   if (process.env.WEBSOCKET_URL) {
     const provider = new WebSocketProvider(process.env.WEBSOCKET_URL);
@@ -17,6 +20,9 @@ const getEthSource = memoize((): EthSource => {
   }
 });
 
+/**
+ * Memoizes the mq sink getter
+ */
 const getMqSink = memoize((): MqSink => {
   if (process.env.REDIS_HOST && process.env.REDIS_PORT) {
     return new MqSink({
@@ -31,6 +37,9 @@ const getMqSink = memoize((): MqSink => {
   }
 });
 
+/**
+ * Entrypoint
+ */
 async function main() {
   const source = getEthSource();
   const sink = getMqSink();
@@ -48,6 +57,9 @@ async function main() {
   redisConnection.on("message", (channel: string, message: string) => {
     try {
       const messageBody: SubscribePayload = JSON.parse(message);
+      /**
+       * Validate the message received via redis pubsub
+       */
       if (payloadValidator(messageBody)) {
         if (channel === "eth-engine-sub") {
           console.log("Subscribing to :", messageBody);
