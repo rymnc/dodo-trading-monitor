@@ -2,15 +2,30 @@ import { FastifyPluginAsync } from "fastify";
 import { ReceiveMessage, SendMessage, isValid, now, SendType } from "./schemas";
 import hash from "object-hash";
 import { getRedis } from "../../plugins/redis";
+import WebSocket from "ws";
 
-const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
+const socket: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.get("/", { websocket: true }, (conn, request) => {
     const { socket } = conn;
-    const send = async (socket: any, payload: string | any, type: SendType) => {
+    /**
+     * Beautifies and sends the payload to the socket
+     * @param socket WebSocket
+     * @param payload string
+     * @param type "update" or "error"
+     * @returns void
+     */
+    const send = async (
+      socket: WebSocket,
+      payload: string | any,
+      type: SendType
+    ) => {
       const slug: SendMessage = {
         timestamp: now(),
         type,
       };
+      /**
+       * If the type is an update, decorate with data and channel
+       */
       if (type === "update") {
         slug.data = payload.data;
         slug.channel = payload.channel ?? "heartbeat";
@@ -20,20 +35,37 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     };
     socket.on("message", async (m: string) => {
       let msg: ReceiveMessage;
+      /**
+       * Validate JSON
+       */
       try {
         msg = JSON.parse(m);
       } catch (e) {
         await send(socket, "invalid json", "error");
         return;
       }
+      /**
+       * Validate the payload
+       */
       const validate: string | boolean = isValid(msg);
       if (validate !== true) {
         await send(socket, validate, "error");
       } else {
+        /**
+         * Main handler for message types
+         */
         switch (msg.type) {
           case "subscribe": {
             if (msg.channel) {
+              /**
+               * This hash will be used by the eth-engine to publish
+               * new events
+               */
               const payloadHash = hash(msg.channel);
+              /**
+               * New redis connection is required for a subscription,
+               * but to prevent memory leaks, it is memoized for the same payloadHash
+               */
               const redis = getRedis(payloadHash);
               const status = await redis.subscribe(payloadHash);
               if (status) {
@@ -46,6 +78,9 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
                   { data: "subscribed", channel: payloadHash },
                   "update"
                 );
+                /**
+                 * Event handler
+                 */
                 redis.on("message", async (channel, message) => {
                   if (channel === payloadHash) {
                     await send(
@@ -64,6 +99,9 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
           case "unsubscribe": {
             if (msg.channel) {
               const payloadHash = hash(msg.channel);
+              /**
+               * Gets the same redis instance that was used to subscribe
+               */
               const redis = getRedis(payloadHash);
               const status = await redis.unsubscribe(payloadHash);
               if (status) {
@@ -79,6 +117,10 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
             break;
           }
           case "ping": {
+            /**
+             * Any arbitrary logic can be placed here to manage pings.
+             * Currently it checks for staleness(15 seconds)
+             */
             await send(socket, { data: "ping_ack" }, "update");
             break;
           }
@@ -95,4 +137,4 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   });
 };
 
-export default example;
+export default socket;
