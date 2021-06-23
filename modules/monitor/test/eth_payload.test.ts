@@ -4,7 +4,9 @@ import { expect } from "chai";
 import "mocha";
 
 export const cleanPayload: any = {
-  abi: ["event Transfer"],
+  abi: [
+    "event Transfer(address indexed from, address indexed to, uint amount)",
+  ],
   address: AddressZero,
   eventField: "value",
   eventName: "Transfer",
@@ -50,6 +52,8 @@ describe("[eth payload validator]", () => {
     const noEventName = { ...cleanPayload };
     delete noEventName.eventName;
     expect(payloadValidator(noEventName)).to.eql(false);
+    const wrongEventName = { ...cleanPayload, eventName: "foo" };
+    expect(payloadValidator(wrongEventName)).to.eql(false);
   });
 
   it("Should return false for malformed label", () => {
