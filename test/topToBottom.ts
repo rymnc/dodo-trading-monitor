@@ -19,6 +19,11 @@ async function main() {
   wsConnection.on("open", async () => {
     wsConnection.on("message", async (msg: any) => {
       console.log(msg ?? "");
+      if (JSON.parse(msg)?.data?.value?.hex === "0x07d0") {
+        console.log("e2e test completed");
+        wsConnection.close();
+        process.exit(0);
+      }
     });
     const { contract, abi } = await scaffoldContracts();
     cleanPayload.channel.abi = abi;
