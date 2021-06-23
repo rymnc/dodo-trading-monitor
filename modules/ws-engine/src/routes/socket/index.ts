@@ -1,5 +1,6 @@
 import { FastifyPluginAsync } from "fastify";
 import { ReceiveMessage, SendMessage, isValid, now, SendType } from "./schemas";
+import hash from "object-hash"
 
 const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.get("/", { websocket: true }, (conn, request) => {
@@ -9,7 +10,10 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         timestamp: now(),
         type,
       };
-      if (type === "update") slug.data = payload;
+      if (type === "update") {
+        slug.data = payload.data;
+        slug.channel = payload.channel ?? "heartbeat";
+      }
       if (type === "error") slug.error = payload;
       return socket.send(JSON.stringify(slug));
     };
@@ -18,7 +22,7 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       try {
         msg = JSON.parse(m);
       } catch (e) {
-        send(socket, "invalid json", "error");
+        await send(socket, "invalid json", "error");
         return;
       }
       const validate: string | boolean = isValid(msg);
@@ -27,19 +31,42 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       } else {
         switch (msg.type) {
           case "subscribe": {
-            // TODO
+            if(msg.channel) {
+              const payloadHash = hash(msg.channel)
+              const status = await fastify.redis.nodeRedis.subscribe(payloadHash)
+              if(status) {
+                await fastify.redis.publish('eth-engine-sub', payloadHash)
+                fastify.redis.nodeRedis.on('message', async (channel, message) => {
+                  if(channel === payloadHash) {
+                    await send(socket, {...JSON.parse(message), channel: payloadHash}, "update")
+                  }
+                })
+              } else {
+                await send(socket, 'could not subscribe to events', "error")
+              }
+              
+            }
             break;
           }
           case "unsubscribe": {
-            // TODO
+            if(msg.channel) {
+              const payloadHash = hash(msg.channel)
+              const status = await fastify.redis.nodeRedis.unsubscribe(payloadHash)
+              if(status) {
+                await fastify.redis.publish('eth-engine-unsub', payloadHash)
+                await send(socket, {data: "unsubscribed"}, "update")
+              } else {
+                await send(socket, `invalid subscription`, "error")
+              }
+            }
             break;
           }
           case "ping": {
-            // TODO
+            await send(socket, 'ping_ack', "update")
             break;
           }
           case "pong": {
-            // TODO
+            await send(socket, 'pong_ack', "update")
             break;
           }
           default: {

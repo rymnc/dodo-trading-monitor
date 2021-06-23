@@ -1,4 +1,5 @@
 import marketsJson from "../../markets.json";
+import {payloadValidator, SubscribePayload} from "@dodo/trading-monitor"
 
 export const markets = new Map<string, RawMarketType>(
   marketsJson.map((i: MarketType) => [
@@ -11,9 +12,6 @@ const receiveTypes = ["subscribe", "unsubscribe", "ping", "pong"];
 export type ReceiveType = "subscribe" | "unsubscribe" | "ping" | "pong";
 
 export type SendType = "update" | "error";
-
-const channelTypes = ["trades", "orders"];
-export type ChannelTypes = "trades" | "orders";
 
 interface RawMarketType {
   address: string;
@@ -33,8 +31,7 @@ const isNumber = (x: any): x is number => {
 
 export interface ReceiveMessage {
   type: ReceiveType;
-  channel?: ChannelTypes;
-  market?: string;
+  channel?: SubscribePayload;
   timestamp?: Seconds;
 }
 
@@ -45,8 +42,8 @@ export const isValid = (msg: any): string | boolean => {
     if (!("channel" in msg) || !("market" in msg)) {
       return "channel/market is required";
     } else {
-      if (!channelTypes.includes(msg.channel)) {
-        return `channel must be one of: ${channelTypes.join(",")}`;
+      if (!payloadValidator(msg.channel)){
+        return `channel is invalid`
       }
       if (!markets.has(msg.market)) {
         return `market must be one of ${Array.from(markets.keys()).join(",")}`;
@@ -74,8 +71,7 @@ export const isValid = (msg: any): string | boolean => {
 export interface SendMessage {
   type: SendType;
   timestamp: Seconds;
-  channel?: ChannelTypes;
-  market?: MarketTypes;
+  channel?: string;
   data?: any;
   error?: string;
 }

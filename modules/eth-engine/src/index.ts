@@ -35,18 +35,22 @@ async function main() {
   const sink = getMqSink();
   const ethMq = new EthMq({ source, sink });
   const redisConnection = sink.client.nodeRedis;
-  await redisConnection.subscribe("eth-engine");
-  redisConnection.on("message", (_: string, message: string) => {
-    try {
-      const messageBody: SubscribePayload = JSON.parse(message);
-      if(payloadValidator(messageBody)) {
-        ethMq.run(messageBody);
-      } else {
-        throw new Error()
+  await redisConnection.subscribe("eth-engine-sub", "eth-engine-unsub");
+  redisConnection.on("message", (channel: string, message: string) => {
+      try {
+        const messageBody: SubscribePayload = JSON.parse(message);
+        if(payloadValidator(messageBody)) {
+          if(channel === 'eth-engine-sub') {
+            ethMq.run(messageBody);
+          } else {
+            ethMq.source.unsubscribe(messageBody)
+          }          
+        } else {
+          throw new Error()
+        }
+      } catch (e) {
+        console.error("[Main] received invalid subscribe request");
       }
-    } catch (e) {
-      console.error("[Main] received invalid subscribe request");
-    }
   });
 }
 

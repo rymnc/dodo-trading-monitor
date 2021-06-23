@@ -16,15 +16,20 @@
   },
   "keywords": [],
   "dependencies": {
+    "@dodo/trading-monitor": "^1.0.0",
     "fastify": "^3.0.0",
     "fastify-autoload": "^3.3.1",
     "fastify-cli": "^2.13.0",
     "fastify-plugin": "^3.0.0",
     "fastify-sensible": "^3.1.0",
-    "fastify-websocket": "^3.2.0"
+    "fastify-websocket": "^3.2.0",
+    "handy-redis": "^2.2.1",
+    "object-hash": "^2.2.0",
+    "redis": "^3.1.2"
   },
   "devDependencies": {
     "@types/node": "^15.0.0",
+    "@types/object-hash": "^2.1.0",
     "@types/tap": "^15.0.0",
     "concurrently": "^6.0.0",
     "cross-env": "^7.0.3",
