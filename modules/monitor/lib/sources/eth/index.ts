@@ -11,6 +11,12 @@ import { Contract } from "ethers";
 import hash from "object-hash";
 import { isEqual, memoize } from "lodash";
 
+/**
+ * Casts the subscribe payload into the common payload,
+ * which allows efficient grouping of callbacks
+ * @param payload SubscribePayload
+ * @returns CommonPayload
+ */
 const sanitizePayload = (payload: SubscribePayload): CommonPayload => {
   return {
     abi: payload.abi,
@@ -19,6 +25,11 @@ const sanitizePayload = (payload: SubscribePayload): CommonPayload => {
   };
 };
 
+/**
+ * Returns the constraints for the provided subscription payload
+ * @param payload SubscribePayload
+ * @returns Constraints
+ */
 const getConstraints = (payload: SubscribePayload): Constraints => {
   return {
     eventField: payload.eventField,
@@ -30,11 +41,26 @@ const getConstraints = (payload: SubscribePayload): Constraints => {
  * Eth Source Class
  */
 export class EthSource implements Source<SubscribePayload, any> {
+  /**
+   * The provider has to be a websocket provider
+   */
   provider: Providers;
+  /**
+   * Id of the Source. Useful if multiple sources and sinks are used
+   */
   id: number;
+  /**
+   * Name of the source
+   */
   name: string = "ethereum";
+  /**
+   * Array of event receipts. The class can be extended
+   * if you have other plans for them!
+   */
   events: EventReceipts[];
-  // Hashmap of callbacks
+  /**
+   *  Hashmap of callbacks
+   */
   callbacks: Map<
     string,
     Array<{ constraints: Constraints; run: (event: any) => void }>
@@ -52,10 +78,29 @@ export class EthSource implements Source<SubscribePayload, any> {
     this.getContract = memoize(this.getContract);
   }
 
+  /**
+   * Memoized version of this function ensures that
+   * we use the same contract instance for multiple subscriptions
+   *
+   * It allows for efficient memory handling
+   *
+   * @param address string
+   * @param abi any[]
+   * @returns Contract
+   */
   getContract(address: string, abi?: any[]): Contract {
     return new Contract(address, abi || [], this.provider);
   }
 
+  /**
+   * Pushes the callback for the specific event into the
+   * callback map, which is keyed by the CommonPayload
+   *
+   * @param payloadHash string
+   * @param callback Function
+   * @param constraints Constraints
+   * @returns boolean
+   */
   handleCallbackPush(
     payloadHash: string,
     callback: (event: any) => void,
@@ -74,6 +119,13 @@ export class EthSource implements Source<SubscribePayload, any> {
     }
   }
 
+  /**
+   * Simple check for the event. It should be extended for
+   * advanced checks
+   * @param args EthersEvent
+   * @param constraints Constraints
+   * @returns boolean
+   */
   constraintCheck(args: EthersEvent, constraints: Constraints): boolean {
     if (args[constraints.eventField] > constraints.triggerValue) {
       return true;
@@ -82,7 +134,7 @@ export class EthSource implements Source<SubscribePayload, any> {
   }
 
   /**
-   * Subscribes to the event, with constraints
+   * Intelligently subscribes to the event, with constraints
    * @param payload SubscribePayload
    * @param callback Function
    * @returns Boolean
@@ -116,6 +168,11 @@ export class EthSource implements Source<SubscribePayload, any> {
     return true;
   }
 
+  /**
+   * Handles unsubscription and removal of callbacks
+   * @param payload SubscribePayload
+   * @returns boolean
+   */
   async unsubscribe(payload: SubscribePayload): Promise<boolean> {
     const payloadHash = hash(sanitizePayload(payload));
     const constraints = getConstraints(payload);

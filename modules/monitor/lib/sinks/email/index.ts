@@ -5,9 +5,21 @@ import { EmailConstructor, EmailPayload } from "./types";
  * Email Sink Class
  */
 export class EmailSink implements Sink<EmailPayload, any> {
+  /**
+   * Nodemailer transporter
+   */
   transport: Transporter;
+  /**
+   * Id of the sink
+   */
   id: number;
+  /**
+   * Name of the sink
+   */
   name: string = "email";
+  /**
+   * Array of receipts
+   */
   receipts: any[];
 
   /**

@@ -13,9 +13,21 @@ import { EthEmailConstructor } from "./types";
 export class EthEmail
   implements Middleware<SubscribePayload, any, EmailPayload, any>
 {
+  /**
+   * Ethereum Source
+   */
   source: EthSource;
+  /**
+   * Email Sink
+   */
   sink: EmailSink;
+  /**
+   * Source email address
+   */
   from: string;
+  /**
+   * Destination email address
+   */
   to: string;
 
   /**

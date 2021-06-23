@@ -1,4 +1,11 @@
-export const eventTypes = ["largeSell", "largeBuy", "attack", "priceMovement", "largeSwap", "arbitrage"]
+export const eventTypes = [
+  "largeSell",
+  "largeBuy",
+  "attack",
+  "priceMovement",
+  "largeSwap",
+  "arbitrage",
+];
 /**
  * Event Types
  */
@@ -13,10 +20,22 @@ export type EventTypes =
 /**
  * All Events **MUST** implement this interface
  */
-export interface Event<T> {
+export interface Event<EventPayload> {
+  /**
+   * Type can be any one of EventTypes
+   */
   type: EventTypes;
+  /**
+   * Ethereum Address
+   */
   address: string;
-  details: T;
+  /**
+   * The event payload
+   */
+  details: EventPayload;
+  /**
+   * Label for the event. Purely sugar
+   */
   label: string;
 }
 
@@ -24,17 +43,38 @@ export interface Event<T> {
  * All Event receipts **MUST** implement this interface
  */
 export interface EventReceipts {
+  /**
+   * Type can be any one of EventTypes
+   */
   type: EventTypes;
+  /**
+   * Ethereum Address
+   */
   address: string;
 }
 
-export interface Source<T, P> {
+export interface Source<SubscribePayload, EventPayload> {
+  /**
+   * Name of the source
+   */
   name: string;
+  /**
+   * Id of the source
+   */
   id: number;
+  /**
+   * Function that subscribes to the event
+   */
   subscribe: (
-    payload: T,
-    callback: (event: Event<P>) => void
+    payload: SubscribePayload,
+    callback: (event: Event<EventPayload>) => void
   ) => Promise<boolean>;
+  /**
+   * Function that returns the events emitted upon subscription
+   */
   subscribedEvents: () => Promise<EventReceipts[]>;
-  unsubscribe: (payload: T) => Promise<boolean>;
+  /**
+   * Function that unsubscribes to the event
+   */
+  unsubscribe: (payload: SubscribePayload) => Promise<boolean>;
 }
