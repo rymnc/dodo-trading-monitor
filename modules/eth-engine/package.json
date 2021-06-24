@@ -1,12 +1,13 @@
 {
-  "name": "@dodo/tradmon-eth-engine",
+  "name": "@dodo/trading-monitor-eth-engine",
   "version": "1.0.0",
   "description": "Ethereum Engine for Dodo Trading Monitor",
   "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ts": "tsc",
-    "dev": "nodemon --config nodemon.json src/index.ts"
+    "dev": "nodemon --config nodemon.json src/index.ts",
+    "start:prod": "node dist/src/index.js"
   },
   "repository": {
     "type": "git",

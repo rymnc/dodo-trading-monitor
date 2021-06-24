@@ -1,0 +1,27 @@
+FROM node:14-alpine as builder
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN yarn install
+
+COPY --chown=node:node . .
+
+RUN yarn build:ts
+
+RUN rm -rf node_modules
+RUN yarn cache clean
+
+RUN yarn install --production
+
+FROM node:14-alpine 
+
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+USER node
+
+EXPOSE 5000
+CMD [ "yarn", "start:prod" ]

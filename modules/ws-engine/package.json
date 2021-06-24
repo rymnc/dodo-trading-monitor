@@ -1,10 +1,11 @@
 {
-  "name": "@dodo/ws-engine",
+  "name": "@dodo/trading-monitor-ws-engine",
   "version": "1.0.0",
   "description": "Core Websocket Engine for Trading Monitor",
   "main": "app.ts",
   "scripts": {
-    "start": "yarn build:ts && fastify start -l info dist/src/app.js",
+    "start": "yarn build:ts && yarn start:prod",
+    "start:prod": "fastify start -l info dist/src/app.js",
     "build:ts": "tsc",
     "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l info -P dist/src/app.js\""
   },
