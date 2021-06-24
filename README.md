@@ -32,3 +32,7 @@ Architecture Diagram: ![Dodo Tradmon](https://user-images.githubusercontent.com/
    docker: `docker-compose down` or ctrl+c
 
    podman: `sudo docker-compose down` (ctrl+c doesn't work for podman)
+
+Recording:
+
+<script id="asciicast-tBWrqQpEwvZOv5LzJxoRLOU1E" src="https://asciinema.org/a/tBWrqQpEwvZOv5LzJxoRLOU1E.js" async data-size="big"></script>
