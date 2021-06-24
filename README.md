@@ -6,7 +6,11 @@ Bounty link: [here](https://gitcoin.co/issue/DODOEX/gitCoinGrant/1/100025887)
 
 Integration Description: [here](https://hackmd.io/@rymnc/dodo-tradmon)
 
-Architecture Diagram: ![Dodo Tradmon](https://user-images.githubusercontent.com/43716372/123160137-71387480-d48b-11eb-863d-f3e307fc5ed5.png)
+Architecture Diagram: 
+<p align="center">
+  <img width="600" src="https://user-images.githubusercontent.com/43716372/123160137-71387480-d48b-11eb-863d-f3e307fc5ed5.png">
+</p>
+
 
 **Running the e2e test:**
 
