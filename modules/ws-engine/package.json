@@ -1,7 +1,7 @@
 {
-  "name": "@dodo/tradmon-engine",
+  "name": "@dodo/ws-engine",
   "version": "1.0.0",
-  "description": "Core Engine for Trading Monitor",
+  "description": "Core Websocket Engine for Trading Monitor",
   "main": "app.ts",
   "scripts": {
     "start": "yarn build:ts && fastify start -l info dist/src/app.js",
