@@ -35,4 +35,4 @@ Architecture Diagram: ![Dodo Tradmon](https://user-images.githubusercontent.com/
 
 Recording:
 
-<script id="asciicast-tBWrqQpEwvZOv5LzJxoRLOU1E" src="https://asciinema.org/a/tBWrqQpEwvZOv5LzJxoRLOU1E.js" async data-size="big"></script>
+[![asciicast](https://asciinema.org/a/tBWrqQpEwvZOv5LzJxoRLOU1E.svg)](https://asciinema.org/a/tBWrqQpEwvZOv5LzJxoRLOU1E)
