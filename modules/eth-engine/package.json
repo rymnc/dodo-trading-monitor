@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ts": "tsc",
     "dev": "nodemon --config nodemon.json src/index.ts",
-    "start:prod": "node dist/src/index.js"
+    "start:prod": "node dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -29,8 +29,10 @@
   },
   "dependencies": {
     "dotenv": "^10.0.0",
+    "ethers": "^5.3.1",
     "ioredis": "^4.27.6",
     "lodash": "^4.17.21",
-    "object-hash": "^2.2.0"
+    "object-hash": "^2.2.0",
+    "@dodo/trading-monitor": "file:../monitor"
   }
 }

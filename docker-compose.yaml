@@ -11,6 +11,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    expose: [5432]
 
   redis:
     image: redis:latest
@@ -21,3 +22,38 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  ganache:
+    build:
+      dockerfile: Dockerfile.ganache
+      context: docker
+    ports:
+      - "8545:8545"
+
+  ws-engine:
+    build:
+      context: modules
+      dockerfile: ../docker/Dockerfile.ws-engine
+    ports:
+      - "5001:5001"
+    expose:
+      - "5001"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - FASTIFY_PORT=5001
+      - FASTIFY_ADDRESS=0.0.0.0
+    depends_on: [eth-engine]
+
+  eth-engine:
+    build:
+      context: modules
+      dockerfile: ../docker/Dockerfile.eth-engine
+    network_mode: host
+    environment:
+      - REDIS_HOST=0.0.0.0
+      - REDIS_PORT=6379
+      - WEBSOCKET_URL=ws://0.0.0.0:8545
+    depends_on:
+      - ganache
+      - redis

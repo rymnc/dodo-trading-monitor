@@ -6,6 +6,7 @@
         "declaration": true,
         "pretty": true,
         "noEmitOnError": true,
+        "esModuleInterop": true,
         "strict": true,
         "resolveJsonModule": true,
         "removeComments": true,

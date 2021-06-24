@@ -15,7 +15,7 @@ const {
 } = require("../modules/monitor/test/scaffoldContracts.ts");
 
 async function main() {
-  const wsConnection = new ws("ws://localhost:3000/socket");
+  const wsConnection = new ws("ws://localhost:5001/socket");
   wsConnection.on("open", async () => {
     wsConnection.on("message", async (msg: any) => {
       console.log(msg ?? "");

@@ -1,5 +1,4 @@
 {
-    "extends": "../../tsconfig.json",
     "compilerOptions": {
         "target": "es2018",
         "module": "commonjs",
@@ -10,6 +9,7 @@
         "strict": true,
         "resolveJsonModule": true,
         "removeComments": true,
+        "esModuleInterop": true,
         "newLine": "lf",
         "noUnusedLocals": true,
         "noFallthroughCasesInSwitch": true,

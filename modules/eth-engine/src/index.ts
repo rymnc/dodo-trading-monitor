@@ -7,14 +7,54 @@ import { WebSocketProvider } from "@ethersproject/providers";
 import { MqSink } from "./monitor/mqSink";
 import { SubscribePayload, payloadValidator } from "@dodo/trading-monitor";
 import { getRedis } from "./monitor/redis";
+import { EventEmitter } from "events";
+
+async function getProvider(url: string): Promise<WebSocketProvider> {
+  return await new Promise((resolve, reject) => {
+    let tries: number = 0;
+    const interval = setInterval(() => {
+      const errorCatcher = new EventEmitter();
+      tries++;
+      const provider = new WebSocketProvider(url);
+      /**
+       * Polyfill ethers.js websocket handlers for robustness
+       */
+      provider._websocket.onopen = () => {
+        provider._wsReady = true;
+        resolve(provider);
+        clearInterval(interval);
+        Object.keys(provider._requests).forEach((id) => {
+          provider._websocket.send(provider._requests[id].payload);
+        });
+      };
+      provider._websocket.onerror = () => {
+        errorCatcher.emit("error");
+        provider.destroy();
+      };
+      errorCatcher.on("error", () => {
+        if (tries > 4) {
+          reject("Could not connect to the Eth Node");
+          clearInterval(interval);
+        }
+        console.error(
+          "Could not connect to the Eth Node. Retrying in 5 seconds."
+        );
+      });
+    }, 5000);
+  });
+}
 
 /**
  * Memoizes the eth source getter
  */
-const getEthSource = memoize((): EthSource => {
+const getEthSource = memoize(async (): Promise<EthSource> => {
   if (process.env.WEBSOCKET_URL) {
-    const provider = new WebSocketProvider(process.env.WEBSOCKET_URL);
-    return new EthSource({ id: 0, provider });
+    try {
+      const provider = await getProvider(process.env.WEBSOCKET_URL);
+      return new EthSource({ id: 0, provider });
+    } catch (e: any) {
+      throw new Error(e.message);
+    }
   } else {
     throw new Error("[EthSource] WEBSOCKET_URL must be defined in env");
   }
@@ -41,7 +81,13 @@ const getMqSink = memoize((): MqSink => {
  * Entrypoint
  */
 async function main() {
-  const source = getEthSource();
+  let source: EthSource;
+  try {
+    source = await getEthSource();
+  } catch (_) {
+    throw new Error("Could not connect to the Eth Node");
+  }
+
   const sink = getMqSink();
   console.log("Initialized Source and Sink");
   const ethMq = new EthMq({ source, sink });
@@ -62,7 +108,7 @@ async function main() {
        */
       if (payloadValidator(messageBody)) {
         if (channel === "eth-engine-sub") {
-          console.log("Subscribing to :", messageBody);
+          console.log("Subscribing to :", messageBody.address);
           ethMq.run(messageBody);
         } else {
           ethMq.source.unsubscribe(messageBody);
@@ -74,8 +120,9 @@ async function main() {
       console.error("[Main] received invalid subscribe request");
     }
   });
+  console.log(source.provider);
 }
 
 main()
-  .catch((e) => console.error(e))
-  .then(() => console.log("Initialized Eth Engine"));
+  .then(() => console.log("Initialized Eth Engine"))
+  .catch((e) => console.error(e.message));
