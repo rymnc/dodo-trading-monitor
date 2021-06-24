@@ -35,4 +35,7 @@ Architecture Diagram: ![Dodo Tradmon](https://user-images.githubusercontent.com/
 
 Recording:
 
-[![asciicast](https://asciinema.org/a/tBWrqQpEwvZOv5LzJxoRLOU1E.svg)](https://asciinema.org/a/tBWrqQpEwvZOv5LzJxoRLOU1E)
+<p align="center">
+  <img width="600" src="./example.svg">
+</p>
+
