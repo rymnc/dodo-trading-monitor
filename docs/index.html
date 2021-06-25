@@ -62,8 +62,36 @@
 					<h1>dodo-tradmon-engine</h1>
 				</a>
 				<p>Trading Monitor for DodoEx</p>
-				<p>Bounty link: <a href="https://gitcoin.co/issue/DODOEX/gitCoinGrant/1/100025887">here</a>
-				Integration Description: <a href="https://hackmd.io/@rymnc/dodo-tradmon">here</a></p>
+				<p>Bounty link: <a href="https://gitcoin.co/issue/DODOEX/gitCoinGrant/1/100025887">here</a></p>
+				<p>Integration Description: <a href="https://hackmd.io/@rymnc/dodo-tradmon">here</a></p>
+				<p>Architecture Diagram: </p>
+				<p align="center">
+					<img width="600" src="https://user-images.githubusercontent.com/43716372/123160137-71387480-d48b-11eb-863d-f3e307fc5ed5.png">
+				</p>
+				<p><strong>Running the e2e test:</strong></p>
+				<ol>
+					<li><p>Requirements: docker/podman, docker-compose</p>
+					</li>
+					<li><p>Start the ecosystem:</p>
+						<p>docker: <code>docker-compose up</code></p>
+						<p>podman: <code>sudo docker-compose up</code></p>
+					</li>
+					<li><p>Install dependencies locally</p>
+						<p><code>yarn</code></p>
+					</li>
+					<li><p>Run the e2e test</p>
+						<p><code>yarn test</code></p>
+						<p>It should subscribe to the websocket engine and receive a singular event.</p>
+					</li>
+					<li><p>Teardown</p>
+						<p>docker: <code>docker-compose down</code> or ctrl+c</p>
+						<p>podman: <code>sudo docker-compose down</code> (ctrl+c doesn&#39;t work for podman)</p>
+					</li>
+				</ol>
+				<p>Recording:</p>
+				<p align="center">
+					<img width="600" src="./example.svg">
+				</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
