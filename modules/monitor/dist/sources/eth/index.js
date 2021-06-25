@@ -141,7 +141,6 @@ class EthSource {
         if (popped) {
             const contract = this.getContract(payload.address);
             const listeners = contract.listeners(payload.eventName);
-            console.log(listeners);
             this.setContract(contract.off(payload.eventName, listeners[0]));
             return true;
         }

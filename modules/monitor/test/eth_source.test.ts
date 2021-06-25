@@ -7,15 +7,17 @@ import { AddressZero } from "@ethersproject/constants";
 import hash from "object-hash";
 import "mocha";
 
-let provider: WebSocketProvider = new WebSocketProvider("ws://localhost:8545");
+let provider: WebSocketProvider;
 let es: EthSource;
 
 describe("[eth source]", () => {
   beforeEach(() => {
+    provider = new WebSocketProvider("ws://localhost:8545");
     es = new EthSource({ id: 0, provider });
   });
 
   afterEach(() => {
+    provider.destroy();
     restore();
   });
 
@@ -191,5 +193,6 @@ describe("[eth source]", () => {
     expect(callback.callCount).to.eql(1);
     const esContract = es.getContract(contract.address);
     expect(esContract.listenerCount(payload.eventName)).to.eql(0);
+    expect(es.provider.listenerCount()).to.eql(0);
   });
 });
