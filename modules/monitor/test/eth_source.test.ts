@@ -190,6 +190,6 @@ describe("[eth source]", () => {
 
     expect(callback.callCount).to.eql(1);
     const esContract = es.getContract(contract.address);
-    expect(esContract.listenerCount()).to.eql(0);
+    expect(esContract.listenerCount(payload.eventName)).to.eql(0);
   });
 });

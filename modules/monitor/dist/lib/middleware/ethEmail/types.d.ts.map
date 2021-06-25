@@ -1,1 +1,0 @@
-{"version":3,"file":"types.d.ts","sourceRoot":"","sources":["../../../../lib/middleware/ethEmail/types.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,eAAe,CAAC;AAC1C,OAAO,EAAE,SAAS,EAAE,MAAM,aAAa,CAAC;AAKxC,MAAM,WAAW,mBAAmB;IAClC,MAAM,EAAE,SAAS,CAAC;IAClB,IAAI,EAAE,SAAS,CAAC;IAChB,IAAI,EAAE,MAAM,CAAC;IACb,EAAE,EAAE,MAAM,CAAC;CACZ"}

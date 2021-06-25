@@ -2,9 +2,9 @@
   "name": "@dodo/trading-monitor",
   "version": "1.0.0",
   "description": "Trading Monitor SDK",
-  "main": "dist/lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "mocha -r ts-node/register test/*.test.ts --exit --timeout 0 || true",
+    "test": "yarn build && mocha -r ts-node/register test/*.test.ts --exit --timeout 0 || true",
     "pretest": "yarn ganache > /dev/null 2>&1 &",
     "posttest": "pkill -f ganache-cli",
     "build": "npx tsc --build",

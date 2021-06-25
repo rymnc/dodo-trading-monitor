@@ -75,7 +75,6 @@ export class EthSource implements Source<SubscribePayload, any> {
     this.id = obj.id;
     this.events = [];
     this.callbacks = new Map();
-    this.getContract = memoize(this.getContract);
   }
 
   /**
@@ -88,9 +87,17 @@ export class EthSource implements Source<SubscribePayload, any> {
    * @param abi any[]
    * @returns Contract
    */
-  getContract(address: string, abi?: any[]): Contract {
+  getContract = memoize((address: string, abi?: any[]): Contract => {
     return new Contract(address, abi || [], this.provider);
-  }
+  });
+
+  /**
+   * Sets the contract back to memoized cache
+   * @param contract Contract
+   */
+  setContract = (contract: Contract): void => {
+    this.getContract.cache.set(contract.address, contract);
+  };
 
   /**
    * Pushes the callback for the specific event into the
@@ -150,19 +157,21 @@ export class EthSource implements Source<SubscribePayload, any> {
 
     if (isNew) {
       const contract = this.getContract(address, abi);
-      contract.on(eventName, async (...event) => {
-        const args = event[event.length - 1].args;
-        const callbackArray = this.callbacks.get(payloadHash);
-        if (callbackArray) {
-          for (const callback of callbackArray) {
-            if (this.constraintCheck(args, callback.constraints)) {
-              await callback.run(
-                contract.interface.parseLog(event[event.length - 1]).args
-              );
+      this.setContract(
+        contract.on(eventName, async (...event) => {
+          const args = event[event.length - 1].args;
+          const callbackArray = this.callbacks.get(payloadHash);
+          if (callbackArray) {
+            for (const callback of callbackArray) {
+              if (this.constraintCheck(args, callback.constraints)) {
+                await callback.run(
+                  contract.interface.parseLog(event[event.length - 1]).args
+                );
+              }
             }
           }
-        }
-      });
+        })
+      );
     }
     this.events.push({ address, type });
     return true;
@@ -199,7 +208,7 @@ export class EthSource implements Source<SubscribePayload, any> {
     if (popped) {
       const contract = this.getContract(payload.address);
       const listeners = contract.listeners(payload.eventName);
-      contract.off(payload.eventName, listeners[0]);
+      this.setContract(contract.off(payload.eventName, listeners[0]));
       return true;
     } else {
       throw new Error("[EthSource] callback was not popped");
