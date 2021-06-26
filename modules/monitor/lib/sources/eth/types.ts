@@ -8,6 +8,7 @@ import { BigNumberish, BigNumber } from "ethers";
 import { eventTypes, EventTypes } from "../types";
 import { Result } from "@ethersproject/abi";
 import { Interface, isAddress, isBytesLike } from "ethers/lib/utils";
+import { Registry } from "../../registry/types";
 
 /**
  * Re-exporting EthersEvent
@@ -53,7 +54,11 @@ export interface Constraints {
 /**
  * Subscription Payload for the Event
  */
-export interface SubscribePayload extends CommonPayload, Constraints {
+export interface SubscribePayload {
+  address: string;
+  abi: any[];
+  type: EventTypes;
+  triggerValue: BigNumberish;
   /**
    * Label for the event. Purely sugar
    */
@@ -135,5 +140,6 @@ export type Providers =
  */
 export interface EthConstructor {
   provider: Providers;
+  registry: Registry;
   id: number;
 }

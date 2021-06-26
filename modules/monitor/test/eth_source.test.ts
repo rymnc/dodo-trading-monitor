@@ -1,4 +1,9 @@
-import { EthSource, SubscribePayload } from "@dodo/trading-monitor";
+import {
+  EthSource,
+  SubscribePayload,
+  SimpleRegistry,
+  EventObject,
+} from "@dodo/trading-monitor";
 import { WebSocketProvider } from "@ethersproject/providers";
 import { expect } from "chai";
 import { spy, restore, assert } from "sinon";
@@ -9,11 +14,18 @@ import "mocha";
 
 let provider: WebSocketProvider;
 let es: EthSource;
+let registry: SimpleRegistry;
+
+const commonSubscribe: EventObject = {
+  eventField: "value",
+  eventName: "Transfer",
+};
 
 describe("[eth source]", () => {
   beforeEach(() => {
+    registry = new SimpleRegistry();
     provider = new WebSocketProvider("ws://localhost:8545");
-    es = new EthSource({ id: 0, provider });
+    es = new EthSource({ id: 0, provider, registry });
   });
 
   afterEach(() => {
@@ -33,13 +45,12 @@ describe("[eth source]", () => {
   it("Should subscribe to an event and not callback", async () => {
     const { contract, abi } = await scaffoldContracts();
     const callback = spy();
+    es.registry.set(contract.address, "largeSell", commonSubscribe);
     const status = await es.subscribe(
       {
         address: contract.address,
         type: "largeSell",
-        eventName: "Transfer",
         abi,
-        eventField: "value",
         triggerValue: 200,
         label: "Tether Token",
       },
@@ -57,13 +68,12 @@ describe("[eth source]", () => {
   it("Should subscribe to an event and callback", async () => {
     const { contract, abi } = await scaffoldContracts();
     const callback = spy();
+    await es.registry.set(contract.address, "largeBuy", commonSubscribe);
     const status = await es.subscribe(
       {
         address: contract.address,
         type: "largeBuy",
-        eventName: "Transfer",
         abi,
-        eventField: "value",
         triggerValue: 200,
         label: "Tether Token",
       },
@@ -80,15 +90,14 @@ describe("[eth source]", () => {
     const { contract, abi } = await scaffoldContracts();
     const callback = spy();
     const statuses = Array(2);
+    await es.registry.set(contract.address, "largeBuy", commonSubscribe);
     for (let i = 0; i < 2; i++) {
       statuses.push(
         await es.subscribe(
           {
             address: contract.address,
             type: "largeBuy",
-            eventName: "Transfer",
             abi,
-            eventField: "value",
             triggerValue: 200,
             label: "Tether Token",
           },
@@ -109,13 +118,13 @@ describe("[eth source]", () => {
     const callback1 = spy();
     const callback2 = spy();
     const callback3 = spy();
+    await es.registry.set(contract.address, "largeBuy", commonSubscribe);
+    await es.registry.set(contract.address, "largeSwap", commonSubscribe);
     await es.subscribe(
       {
         address: contract.address,
         type: "largeBuy",
-        eventName: "Transfer",
         abi,
-        eventField: "value",
         triggerValue: 200,
         label: "Tether Token",
       },
@@ -125,9 +134,7 @@ describe("[eth source]", () => {
       {
         address: contract.address,
         type: "largeSwap",
-        eventName: "Transfer",
         abi,
-        eventField: "value",
         triggerValue: 1000000,
         label: "Not Tether Token",
       },
@@ -137,9 +144,7 @@ describe("[eth source]", () => {
       {
         address: contract.address,
         type: "largeBuy",
-        eventName: "Transfer",
         abi,
-        eventField: "value",
         triggerValue: 300,
         label: "Tether Token",
       },
@@ -167,12 +172,11 @@ describe("[eth source]", () => {
   it("Should handle unsubscription", async () => {
     const { contract, abi } = await scaffoldContracts();
     const callback = spy();
+    await es.registry.set(contract.address, "largeBuy", commonSubscribe);
     const payload: SubscribePayload = {
       address: contract.address,
       type: "largeBuy",
-      eventName: "Transfer",
       abi,
-      eventField: "value",
       triggerValue: 200,
       label: "Tether Token",
     };
@@ -192,7 +196,7 @@ describe("[eth source]", () => {
 
     expect(callback.callCount).to.eql(1);
     const esContract = es.getContract(contract.address);
-    expect(esContract.listenerCount(payload.eventName)).to.eql(0);
+    expect(esContract.listenerCount("Transfer")).to.eql(0);
     expect(es.provider.listenerCount()).to.eql(0);
   });
 });

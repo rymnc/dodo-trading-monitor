@@ -1,3 +1,5 @@
+import { Registry } from "../registry/types";
+
 export const eventTypes = [
   "largeSell",
   "largeBuy",
@@ -77,4 +79,5 @@ export interface Source<SubscribePayload, EventPayload> {
    * Function that unsubscribes to the event
    */
   unsubscribe: (payload: SubscribePayload) => Promise<boolean>;
+  registry: Registry;
 }
