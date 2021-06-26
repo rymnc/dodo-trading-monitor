@@ -14,7 +14,7 @@ import hash from "object-hash";
 async function getProvider(url: string): Promise<WebSocketProvider> {
   return await new Promise((resolve, reject) => {
     let tries: number = 0;
-    const interval = setInterval(() => {
+    const providerLoop = () => {
       const errorCatcher = new EventEmitter();
       tries++;
       const provider = new WebSocketProvider(url);
@@ -34,7 +34,7 @@ async function getProvider(url: string): Promise<WebSocketProvider> {
         provider.destroy();
       };
       errorCatcher.on("error", () => {
-        if (tries > 4) {
+        if (tries > 3) {
           reject("Could not connect to the Eth Node");
           clearInterval(interval);
         }
@@ -42,7 +42,9 @@ async function getProvider(url: string): Promise<WebSocketProvider> {
           "Could not connect to the Eth Node. Retrying in 5 seconds."
         );
       });
-    }, 5000);
+    };
+    providerLoop();
+    const interval = setInterval(providerLoop, 5000);
   });
 }
 
