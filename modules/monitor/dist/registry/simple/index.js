@@ -2,7 +2,19 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SimpleRegistry = void 0;
 class SimpleRegistry {
-    constructor() {
+    constructor(obj) {
+        Object.defineProperty(this, "id", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "name", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: "simpleRegistry"
+        });
         Object.defineProperty(this, "registry", {
             enumerable: true,
             configurable: true,
@@ -10,6 +22,7 @@ class SimpleRegistry {
             value: void 0
         });
         this.registry = new Map();
+        this.id = obj.id;
     }
     hasAddress(address) {
         const addressEvents = this.registry.has(address);

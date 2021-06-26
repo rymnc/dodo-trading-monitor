@@ -6,7 +6,7 @@ import "mocha";
 let registry: SimpleRegistry;
 describe("[simple registry]", () => {
   beforeEach(() => {
-    registry = new SimpleRegistry();
+    registry = new SimpleRegistry({ id: 0 });
   });
 
   it("Should set event", () => {

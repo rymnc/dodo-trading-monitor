@@ -23,9 +23,9 @@ const commonSubscribe: EventObject = {
 
 describe("[eth source]", () => {
   beforeEach(() => {
-    registry = new SimpleRegistry();
+    registry = new SimpleRegistry({ id: 0 });
     provider = new WebSocketProvider("ws://localhost:8545");
-    es = new EthSource({ id: 0, provider, registry });
+    es = new EthSource({ id: 1, provider, registry });
   });
 
   afterEach(() => {

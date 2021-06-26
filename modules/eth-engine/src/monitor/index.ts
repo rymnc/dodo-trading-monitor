@@ -64,18 +64,22 @@ export class EthMq
    * Main runner function
    * @param payload SubscribePayload
    */
-  run(payload: SubscribePayload) {
+  async run(payload: SubscribePayload) {
     const boundTransform = this.transform.bind(this);
-    this.source.subscribe(payload, async (event) => {
-      const slug: Event<any> = {
-        address: payload.address,
-        type: payload.type,
-        label: payload.label,
-        details: event,
-      };
-      const mqPayload = await boundTransform(slug);
-      mqPayload.uuid = hash(payload);
-      await this.sink.send(mqPayload);
-    });
+    try {
+      await this.source.subscribe(payload, async (event) => {
+        const slug: Event<any> = {
+          address: payload.address,
+          type: payload.type,
+          label: payload.label,
+          details: event,
+        };
+        const mqPayload = await boundTransform(slug);
+        mqPayload.uuid = hash(payload);
+        await this.sink.send(mqPayload);
+      });
+    } catch (e: any) {
+      throw new Error(e.message);
+    }
   }
 }

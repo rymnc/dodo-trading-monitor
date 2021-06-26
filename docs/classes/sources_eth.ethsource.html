@@ -108,13 +108,17 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sources_eth.ethsource.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sources_eth.ethsource.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sources_eth.ethsource.html#provider" class="tsd-kind-icon">provider</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sources_eth.ethsource.html#registry" class="tsd-kind-icon">registry</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sources_eth.ethsource.html#constraintcheck" class="tsd-kind-icon">constraint<wbr>Check</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sources_eth.ethsource.html#getconstraints" class="tsd-kind-icon">get<wbr>Constraints</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sources_eth.ethsource.html#getparams" class="tsd-kind-icon">get<wbr>Params</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sources_eth.ethsource.html#handlecallbackpush" class="tsd-kind-icon">handle<wbr>Callback<wbr>Push</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sources_eth.ethsource.html#sanitizepayload" class="tsd-kind-icon">sanitize<wbr>Payload</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sources_eth.ethsource.html#setcontract" class="tsd-kind-icon">set<wbr>Contract</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sources_eth.ethsource.html#subscribe" class="tsd-kind-icon">subscribe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sources_eth.ethsource.html#subscribedevents" class="tsd-kind-icon">subscribed<wbr>Events</a></li>
@@ -136,7 +140,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L67">sources/eth/index.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L46">sources/eth/index.ts:46</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -166,7 +170,7 @@
 					<div class="tsd-signature tsd-kind-icon">callbacks<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">{ </span>constraints<span class="tsd-signature-symbol">: </span><a href="../interfaces/sources_eth_types.constraints.html" class="tsd-signature-type" data-tsd-kind="Interface">Constraints</a><span class="tsd-signature-symbol">; </span>run<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L64">sources/eth/index.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L39">sources/eth/index.ts:39</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -181,7 +185,7 @@
 					<div class="tsd-signature tsd-kind-icon">events<span class="tsd-signature-symbol">:</span> <a href="../interfaces/sources_types.eventreceipts.html" class="tsd-signature-type" data-tsd-kind="Interface">EventReceipts</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L60">sources/eth/index.ts:60</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L35">sources/eth/index.ts:35</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -197,7 +201,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Contract<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, abi<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Contract</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">MemoizedFunction</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L90">sources/eth/index.ts:90</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L70">sources/eth/index.ts:70</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -226,7 +230,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/sources_types.source.html">Source</a>.<a href="../interfaces/sources_types.source.html#id">id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L51">sources/eth/index.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L26">sources/eth/index.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -242,7 +246,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/sources_types.source.html">Source</a>.<a href="../interfaces/sources_types.source.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L55">sources/eth/index.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L30">sources/eth/index.ts:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -257,12 +261,28 @@
 					<div class="tsd-signature tsd-kind-icon">provider<span class="tsd-signature-symbol">:</span> <a href="../modules/sources_eth_types.html#providers" class="tsd-signature-type" data-tsd-kind="Type alias">Providers</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L47">sources/eth/index.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L22">sources/eth/index.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>The provider has to be a websocket provider</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="registry" class="tsd-anchor"></a>
+					<h3>registry</h3>
+					<div class="tsd-signature tsd-kind-icon">registry<span class="tsd-signature-symbol">:</span> <a href="../interfaces/registry_types.registry.html" class="tsd-signature-type" data-tsd-kind="Interface">Registry</a></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/sources_types.source.html">Source</a>.<a href="../interfaces/sources_types.source.html#registry">registry</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L46">sources/eth/index.ts:46</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Registry to fetch events from</p>
 						</div>
 					</div>
 				</section>
@@ -279,7 +299,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L136">sources/eth/index.ts:136</a></li>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L159">sources/eth/index.ts:159</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -309,6 +329,61 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getconstraints" class="tsd-anchor"></a>
+					<h3>get<wbr>Constraints</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Constraints<span class="tsd-signature-symbol">(</span>payload<span class="tsd-signature-symbol">: </span><a href="../interfaces/sources_eth_types.subscribepayload.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribePayload</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sources_eth_types.constraints.html" class="tsd-signature-type" data-tsd-kind="Interface">Constraints</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L109">sources/eth/index.ts:109</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the constraints for the provided subscription payload</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>payload: <a href="../interfaces/sources_eth_types.subscribepayload.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribePayload</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>SubscribePayload</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sources_eth_types.constraints.html" class="tsd-signature-type" data-tsd-kind="Interface">Constraints</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Constraints</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getparams" class="tsd-anchor"></a>
+					<h3>get<wbr>Params</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Params<span class="tsd-signature-symbol">(</span>payload<span class="tsd-signature-symbol">: </span><a href="../interfaces/sources_eth_types.subscribepayload.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribePayload</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sources_eth_types.commonpayload.html" class="tsd-signature-type" data-tsd-kind="Interface">CommonPayload</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sources_eth_types.constraints.html" class="tsd-signature-type" data-tsd-kind="Interface">Constraints</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L166">sources/eth/index.ts:166</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>payload: <a href="../interfaces/sources_eth_types.subscribepayload.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribePayload</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sources_eth_types.commonpayload.html" class="tsd-signature-type" data-tsd-kind="Interface">CommonPayload</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sources_eth_types.constraints.html" class="tsd-signature-type" data-tsd-kind="Interface">Constraints</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="handlecallbackpush" class="tsd-anchor"></a>
 					<h3>handle<wbr>Callback<wbr>Push</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -318,7 +393,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L111">sources/eth/index.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L134">sources/eth/index.ts:134</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -372,6 +447,39 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="sanitizepayload" class="tsd-anchor"></a>
+					<h3>sanitize<wbr>Payload</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">sanitize<wbr>Payload<span class="tsd-signature-symbol">(</span>payload<span class="tsd-signature-symbol">: </span><a href="../interfaces/sources_eth_types.subscribepayload.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribePayload</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sources_eth_types.commonpayload.html" class="tsd-signature-type" data-tsd-kind="Interface">CommonPayload</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L88">sources/eth/index.ts:88</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Casts the subscribe payload into the common payload,
+									which allows efficient grouping of callbacks</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>payload: <a href="../interfaces/sources_eth_types.subscribepayload.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribePayload</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>SubscribePayload</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sources_eth_types.commonpayload.html" class="tsd-signature-type" data-tsd-kind="Interface">CommonPayload</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>CommonPayload</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="setcontract" class="tsd-anchor"></a>
 					<h3>set<wbr>Contract</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -381,7 +489,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L98">sources/eth/index.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L78">sources/eth/index.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -413,7 +521,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of Source.subscribe</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L149">sources/eth/index.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L178">sources/eth/index.ts:178</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -470,7 +578,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of Source.subscribedEvents</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L222">sources/eth/index.ts:222</a></li>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L259">sources/eth/index.ts:259</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -494,7 +602,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of Source.unsubscribe</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/d9dfe20/modules/monitor/lib/sources/eth/index.ts#L185">sources/eth/index.ts:185</a></li>
+									<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/index.ts#L220">sources/eth/index.ts:220</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -540,6 +648,18 @@
 						<a href="../modules/middleware_types.html">middleware/types</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="../modules/registry.html">registry</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/registry_simple.html">registry/simple</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/registry_simple_types.html">registry/simple/types</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/registry_types.html">registry/types</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="../modules/sinks.html">sinks</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -562,9 +682,6 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/sources_types.html">sources/types</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/types.html">types</a>
 					</li>
 				</ul>
 			</nav>
@@ -596,11 +713,23 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="sources_eth.ethsource.html#provider" class="tsd-kind-icon">provider</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sources_eth.ethsource.html#registry" class="tsd-kind-icon">registry</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="sources_eth.ethsource.html#constraintcheck" class="tsd-kind-icon">constraint<wbr>Check</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sources_eth.ethsource.html#getconstraints" class="tsd-kind-icon">get<wbr>Constraints</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sources_eth.ethsource.html#getparams" class="tsd-kind-icon">get<wbr>Params</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="sources_eth.ethsource.html#handlecallbackpush" class="tsd-kind-icon">handle<wbr>Callback<wbr>Push</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sources_eth.ethsource.html#sanitizepayload" class="tsd-kind-icon">sanitize<wbr>Payload</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="sources_eth.ethsource.html#setcontract" class="tsd-kind-icon">set<wbr>Contract</a>

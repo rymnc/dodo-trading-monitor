@@ -141,7 +141,7 @@ class EthSource {
             return true;
         }
         catch (e) {
-            throw new Error("[EthSource] " + e.message);
+            throw new Error(e.message);
         }
     }
     async unsubscribe(payload) {

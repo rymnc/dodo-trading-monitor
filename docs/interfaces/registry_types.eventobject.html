@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SubscribePayload | @dodo/trading-monitor</title>
+	<title>EventObject | @dodo/trading-monitor</title>
 	<meta name="description" content="Documentation for @dodo/trading-monitor">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,31 +55,24 @@
 					<a href="../modules.html">@dodo/trading-monitor</a>
 				</li>
 				<li>
-					<a href="../modules/sources_eth_types.html">sources/eth/types</a>
+					<a href="../modules/registry_types.html">registry/types</a>
 				</li>
 				<li>
-					<a href="sources_eth_types.subscribepayload.html">SubscribePayload</a>
+					<a href="registry_types.eventobject.html">EventObject</a>
 				</li>
 			</ul>
-			<h1>Interface SubscribePayload</h1>
+			<h1>Interface EventObject</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Subscription Payload for the Event</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">SubscribePayload</span>
+						<span class="target">EventObject</span>
 					</li>
 				</ul>
 			</section>
@@ -90,11 +83,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sources_eth_types.subscribepayload.html#abi" class="tsd-kind-icon">abi</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sources_eth_types.subscribepayload.html#address" class="tsd-kind-icon">address</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sources_eth_types.subscribepayload.html#label" class="tsd-kind-icon">label</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sources_eth_types.subscribepayload.html#triggervalue" class="tsd-kind-icon">trigger<wbr>Value</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sources_eth_types.subscribepayload.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="registry_types.eventobject.html#eventfield" class="tsd-kind-icon">event<wbr>Field</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="registry_types.eventobject.html#eventname" class="tsd-kind-icon">event<wbr>Name</a></li>
 							</ul>
 						</section>
 					</div>
@@ -103,59 +93,34 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="abi" class="tsd-anchor"></a>
-					<h3>abi</h3>
-					<div class="tsd-signature tsd-kind-icon">abi<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
+					<a name="eventfield" class="tsd-anchor"></a>
+					<h3>event<wbr>Field</h3>
+					<div class="tsd-signature tsd-kind-icon">event<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/types.ts#L59">sources/eth/types.ts:59</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="address" class="tsd-anchor"></a>
-					<h3>address</h3>
-					<div class="tsd-signature tsd-kind-icon">address<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/types.ts#L58">sources/eth/types.ts:58</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="label" class="tsd-anchor"></a>
-					<h3>label</h3>
-					<div class="tsd-signature tsd-kind-icon">label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/types.ts#L65">sources/eth/types.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/registry/types.ts#L11">registry/types.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Label for the event. Purely sugar</p>
+							<p>Field from emitted event that is run against constraints</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="triggervalue" class="tsd-anchor"></a>
-					<h3>trigger<wbr>Value</h3>
-					<div class="tsd-signature tsd-kind-icon">trigger<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">BigNumberish</span></div>
+					<a name="eventname" class="tsd-anchor"></a>
+					<h3>event<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">event<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/types.ts#L61">sources/eth/types.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/registry/types.ts#L7">registry/types.ts:7</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="type" class="tsd-anchor"></a>
-					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../modules/sources_types.html#eventtypes" class="tsd-signature-type" data-tsd-kind="Type alias">EventTypes</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/sources/eth/types.ts#L60">sources/eth/types.ts:60</a></li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of the event emitted from contract</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -189,7 +154,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/registry_simple_types.html">registry/simple/types</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/registry_types.html">registry/types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -210,7 +175,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/sources_eth.html">sources/eth</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/sources_eth_types.html">sources/eth/types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -220,47 +185,23 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="sources_eth_types.commonpayload.html" class="tsd-kind-icon">Common<wbr>Payload</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="sources_eth_types.constraints.html" class="tsd-kind-icon">Constraints</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="sources_eth_types.ethconstructor.html" class="tsd-kind-icon">Eth<wbr>Constructor</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="sources_eth_types.subscribepayload.html" class="tsd-kind-icon">Subscribe<wbr>Payload</a>
+						<a href="registry_types.eventobject.html" class="tsd-kind-icon">Event<wbr>Object</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sources_eth_types.subscribepayload.html#abi" class="tsd-kind-icon">abi</a>
+								<a href="registry_types.eventobject.html#eventfield" class="tsd-kind-icon">event<wbr>Field</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sources_eth_types.subscribepayload.html#address" class="tsd-kind-icon">address</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sources_eth_types.subscribepayload.html#label" class="tsd-kind-icon">label</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sources_eth_types.subscribepayload.html#triggervalue" class="tsd-kind-icon">trigger<wbr>Value</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sources_eth_types.subscribepayload.html#type" class="tsd-kind-icon">type</a>
+								<a href="registry_types.eventobject.html#eventname" class="tsd-kind-icon">event<wbr>Name</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/sources_eth_types.html#ethersevent" class="tsd-kind-icon">Ethers<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/sources_eth_types.html#providers" class="tsd-kind-icon">Providers</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/sources_eth_types.html#payloadvalidator" class="tsd-kind-icon">payload<wbr>Validator</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="registry_types.registry.html" class="tsd-kind-icon">Registry</a>
 					</li>
 				</ul>
 			</nav>

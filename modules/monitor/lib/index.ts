@@ -7,7 +7,6 @@ import { SimpleRegistry } from "./registry";
  * Re export everything for extendability
  */
 export { EmailSink, EthSource, EthEmail, SimpleRegistry };
-
 export * from "./middleware/types";
 export * from "./middleware/ethEmail/types";
 export * from "./sinks/types";

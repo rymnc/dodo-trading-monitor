@@ -8,8 +8,6 @@ export const cleanPayload: any = {
     "event Transfer(address indexed from, address indexed to, uint amount)",
   ],
   address: AddressZero,
-  eventField: "value",
-  eventName: "Transfer",
   label: "Foo Bar",
   triggerValue: 200,
   type: "arbitrage",
@@ -36,24 +34,6 @@ describe("[eth payload validator]", () => {
     const noAddress = { ...cleanPayload };
     delete noAddress.address;
     expect(payloadValidator(noAddress)).to.eql(false);
-  });
-
-  it("Should return false for malformed eventField", () => {
-    const notEventField = { ...cleanPayload, eventField: [] };
-    expect(payloadValidator(notEventField)).to.eql(false);
-    const noEventField = { ...cleanPayload };
-    delete noEventField.eventField;
-    expect(payloadValidator(noEventField)).to.eql(false);
-  });
-
-  it("Should return false for malformed eventName", () => {
-    const notEventName = { ...cleanPayload, eventName: 1245 };
-    expect(payloadValidator(notEventName)).to.eql(false);
-    const noEventName = { ...cleanPayload };
-    delete noEventName.eventName;
-    expect(payloadValidator(noEventName)).to.eql(false);
-    const wrongEventName = { ...cleanPayload, eventName: "foo" };
-    expect(payloadValidator(wrongEventName)).to.eql(false);
   });
 
   it("Should return false for malformed label", () => {

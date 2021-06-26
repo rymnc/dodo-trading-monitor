@@ -16,6 +16,14 @@ export interface EventObject {
  */
 export interface Registry {
   /**
+   * Id of the registry
+   */
+  id: number;
+  /**
+   * Name of the registry
+   */
+  name: string;
+  /**
    * Sets the event, and real-life event for the specific address
    */
   set: (
@@ -27,8 +35,4 @@ export interface Registry {
    * Gets the onchain-event from address and real-life event
    */
   get: (address: string, key: EventTypes) => Promise<EventObject> | EventObject;
-  /**
-   * Map of addresses to the map of events
-   */
-  registry: Map<string, Map<EventTypes, EventObject>>;
 }

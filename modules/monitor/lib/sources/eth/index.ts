@@ -208,7 +208,7 @@ export class EthSource implements Source<SubscribePayload, any> {
       this.events.push({ address, type });
       return true;
     } catch (e: any) {
-      throw new Error("[EthSource] " + e.message);
+      throw new Error(e.message);
     }
   }
 

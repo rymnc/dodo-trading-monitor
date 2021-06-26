@@ -7,7 +7,7 @@ import {
 import { BigNumberish, BigNumber } from "ethers";
 import { eventTypes, EventTypes } from "../types";
 import { Result } from "@ethersproject/abi";
-import { Interface, isAddress, isBytesLike } from "ethers/lib/utils";
+import { isAddress, isBytesLike } from "ethers/lib/utils";
 import { Registry } from "../../registry/types";
 
 /**
@@ -72,31 +72,7 @@ export interface SubscribePayload {
 const hasAddress = (p: any) => "address" in p && isAddress(p.address);
 const hasAbi = (p: any) =>
   "abi" in p && Array.isArray(p.abi) && p.abi.length > 0;
-const hasEName = (p: any) => {
-  if (
-    "eventName" in p &&
-    typeof p.eventName === "string" &&
-    p.eventName.length > 0
-  ) {
-    if (hasAbi(p)) {
-      try {
-        // Checking if the event name is valid from the interface of provided abi
-        const iface = new Interface(p.abi);
-        iface.getEvent(p.eventName);
-        return true;
-      } catch (e) {
-        return false;
-      }
-    } else return false;
-  } else {
-    return false;
-  }
-};
 const hasEType = (p: any) => "type" in p && eventTypes.includes(p.type);
-const hasEField = (p: any) =>
-  "eventField" in p &&
-  typeof p.eventField === "string" &&
-  p.eventField.length > 0;
 const hasTriggerValue = (p: any) =>
   "triggerValue" in p &&
   (["bigint", "number"].includes(typeof p.triggerValue) ||
@@ -105,15 +81,7 @@ const hasTriggerValue = (p: any) =>
 const hasLabel = (p: any) =>
   "label" in p && typeof p.label === "string" && p.label.length > 0;
 
-const validators = [
-  hasAddress,
-  hasAbi,
-  hasEName,
-  hasEType,
-  hasEField,
-  hasTriggerValue,
-  hasLabel,
-];
+const validators = [hasAddress, hasAbi, hasEType, hasTriggerValue, hasLabel];
 
 /**
  * Runtime validation for subscription payloads

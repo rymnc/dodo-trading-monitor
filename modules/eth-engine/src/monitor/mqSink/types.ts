@@ -2,14 +2,6 @@ import { SinkPayload, EventTypes } from "@dodo/trading-monitor";
 
 export interface MqSinkConstructor {
   /**
-   * Redis host url
-   */
-  host: string;
-  /**
-   * Redis port
-   */
-  port: number;
-  /**
    * Id of the Sink
    */
   id: number;

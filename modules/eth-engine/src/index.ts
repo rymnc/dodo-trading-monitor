@@ -8,6 +8,8 @@ import { MqSink } from "./monitor/mqSink";
 import { SubscribePayload, payloadValidator } from "@dodo/trading-monitor";
 import { getRedis } from "./monitor/redis";
 import { EventEmitter } from "events";
+import { RedisRegistry } from "./monitor/redisRegistry";
+import hash from "object-hash";
 
 async function getProvider(url: string): Promise<WebSocketProvider> {
   return await new Promise((resolve, reject) => {
@@ -51,7 +53,8 @@ const getEthSource = memoize(async (): Promise<EthSource> => {
   if (process.env.WEBSOCKET_URL) {
     try {
       const provider = await getProvider(process.env.WEBSOCKET_URL);
-      return new EthSource({ id: 0, provider });
+      const registry = new RedisRegistry({ id: 2 });
+      return new EthSource({ id: 0, provider, registry });
     } catch (e: any) {
       throw new Error(e.message);
     }
@@ -67,8 +70,6 @@ const getMqSink = memoize((): MqSink => {
   if (process.env.REDIS_HOST && process.env.REDIS_PORT) {
     return new MqSink({
       id: 1,
-      host: process.env.REDIS_HOST,
-      port: Number(process.env.REDIS_PORT),
     });
   } else {
     throw new Error(
@@ -100,7 +101,7 @@ async function main() {
     console.error(e);
   }
   console.log("Subscribed to relevant channels");
-  redisConnection.on("message", (channel: string, message: string) => {
+  redisConnection.on("message", async (channel: string, message: string) => {
     try {
       const messageBody: SubscribePayload = JSON.parse(message);
       /**
@@ -109,7 +110,17 @@ async function main() {
       if (payloadValidator(messageBody)) {
         if (channel === "eth-engine-sub") {
           console.log("Subscribing to :", messageBody.address);
-          ethMq.run(messageBody);
+          const toChannel = hash(messageBody);
+          try {
+            await ethMq.run(messageBody);
+          } catch (e: any) {
+            const ephemeralClient = getRedis();
+            await ephemeralClient.publish(
+              toChannel,
+              JSON.stringify({ error: true, reason: e.message })
+            );
+            ephemeralClient.disconnect();
+          }
         } else {
           ethMq.source.unsubscribe(messageBody);
         }
@@ -120,7 +131,6 @@ async function main() {
       console.error("[Main] received invalid subscribe request");
     }
   });
-  console.log(source.provider);
 }
 
 main()

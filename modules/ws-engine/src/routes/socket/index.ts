@@ -50,6 +50,7 @@ const socket: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       const validate: string | boolean = isValid(msg);
       if (validate !== true) {
         await send(socket, validate, "error");
+        socket.terminate();
       } else {
         /**
          * Main handler for message types
@@ -83,15 +84,22 @@ const socket: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
                  */
                 redis.on("message", async (channel, message) => {
                   if (channel === payloadHash) {
-                    await send(
-                      socket,
-                      { ...JSON.parse(message), channel: payloadHash },
-                      "update"
-                    );
+                    const msg = JSON.parse(message);
+                    if (msg?.error === true) {
+                      await send(socket, msg.reason, "error");
+                      socket.terminate();
+                    } else {
+                      await send(
+                        socket,
+                        { ...msg, channel: payloadHash },
+                        "update"
+                      );
+                    }
                   }
                 });
               } else {
                 await send(socket, "could not subscribe to events", "error");
+                socket.terminate();
               }
             }
             break;
@@ -111,7 +119,7 @@ const socket: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
                 );
                 await send(socket, { data: "unsubscribed" }, "update");
               } else {
-                await send(socket, `invalid subscription`, "error");
+                await send(socket, "invalid subscription", "error");
               }
             }
             break;
@@ -130,6 +138,7 @@ const socket: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
           }
           default: {
             await send(socket, "Unknown Message Type", "error");
+            socket.terminate();
           }
         }
       }

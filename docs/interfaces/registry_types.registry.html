@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Middleware | @dodo/trading-monitor</title>
+	<title>Registry | @dodo/trading-monitor</title>
 	<meta name="description" content="Documentation for @dodo/trading-monitor">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,13 +55,13 @@
 					<a href="../modules.html">@dodo/trading-monitor</a>
 				</li>
 				<li>
-					<a href="../modules/middleware_types.html">middleware/types</a>
+					<a href="../modules/registry_types.html">registry/types</a>
 				</li>
 				<li>
-					<a href="middleware_types.middleware.html">Middleware</a>
+					<a href="registry_types.registry.html">Registry</a>
 				</li>
 			</ul>
-			<h1>Interface Middleware&lt;SourcePayload, SourceEvent, SinkPayload, SinkReceipt&gt;</h1>
+			<h1>Interface Registry</h1>
 		</div>
 	</div>
 </header>
@@ -71,39 +71,22 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>All Middlewares must implement the following interface</p>
+						<p>Every Registry <strong>MUST</strong> implement this interface</p>
 					</div>
 				</div>
-			</section>
-			<section class="tsd-panel tsd-type-parameters">
-				<h3>Type parameters</h3>
-				<ul class="tsd-type-parameters">
-					<li>
-						<h4>SourcePayload</h4>
-					</li>
-					<li>
-						<h4>SourceEvent</h4>
-					</li>
-					<li>
-						<h4>SinkPayload</h4>
-					</li>
-					<li>
-						<h4>SinkReceipt</h4>
-					</li>
-				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Middleware</span>
+						<span class="target">Registry</span>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel">
 				<h3>Implemented by</h3>
 				<ul class="tsd-hierarchy">
-					<li><a href="../classes/middleware_ethemail.ethemail.html" class="tsd-signature-type" data-tsd-kind="Class">EthEmail</a></li>
+					<li><a href="../classes/registry_simple.simpleregistry.html" class="tsd-signature-type" data-tsd-kind="Class">SimpleRegistry</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -113,10 +96,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="middleware_types.middleware.html#run" class="tsd-kind-icon">run</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="middleware_types.middleware.html#sink" class="tsd-kind-icon">sink</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="middleware_types.middleware.html#source" class="tsd-kind-icon">source</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="middleware_types.middleware.html#transform" class="tsd-kind-icon">transform</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="registry_types.registry.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="registry_types.registry.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="registry_types.registry.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="registry_types.registry.html#set" class="tsd-kind-icon">set</a></li>
 							</ul>
 						</section>
 					</div>
@@ -125,12 +108,12 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="run" class="tsd-anchor"></a>
-					<h3>run</h3>
-					<div class="tsd-signature tsd-kind-icon">run<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>payload<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SourcePayload</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<a name="get" class="tsd-anchor"></a>
+					<h3>get</h3>
+					<div class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, key<span class="tsd-signature-symbol">: </span><a href="../modules/sources_types.html#eventtypes" class="tsd-signature-type" data-tsd-kind="Type alias">EventTypes</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="registry_types.eventobject.html" class="tsd-signature-type" data-tsd-kind="Interface">EventObject</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="registry_types.eventobject.html" class="tsd-signature-type" data-tsd-kind="Interface">EventObject</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/middleware/types.ts#L28">middleware/types.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/registry/types.ts#L37">registry/types.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -138,22 +121,25 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>payload<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SourcePayload</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, key<span class="tsd-signature-symbol">: </span><a href="../modules/sources_types.html#eventtypes" class="tsd-signature-type" data-tsd-kind="Type alias">EventTypes</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="registry_types.eventobject.html" class="tsd-signature-type" data-tsd-kind="Interface">EventObject</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="registry_types.eventobject.html" class="tsd-signature-type" data-tsd-kind="Interface">EventObject</a><span class="tsd-signature-symbol">&gt;</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<div class="tsd-comment tsd-typography">
 											<div class="lead">
-												<p>Function that runs the middleware</p>
+												<p>Gets the onchain-event from address and real-life event</p>
 											</div>
 										</div>
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>payload: <span class="tsd-signature-type">SourcePayload</span></h5>
+												<h5>address: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>key: <a href="../modules/sources_types.html#eventtypes" class="tsd-signature-type" data-tsd-kind="Type alias">EventTypes</a></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+										<h4 class="tsd-returns-title">Returns <a href="registry_types.eventobject.html" class="tsd-signature-type" data-tsd-kind="Interface">EventObject</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="registry_types.eventobject.html" class="tsd-signature-type" data-tsd-kind="Interface">EventObject</a><span class="tsd-signature-symbol">&gt;</span></h4>
 									</li>
 								</ul>
 							</li>
@@ -161,42 +147,42 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="sink" class="tsd-anchor"></a>
-					<h3>sink</h3>
-					<div class="tsd-signature tsd-kind-icon">sink<span class="tsd-signature-symbol">:</span> <a href="sinks_types.sink.html" class="tsd-signature-type" data-tsd-kind="Interface">Sink</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SinkPayload</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SinkReceipt</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="id" class="tsd-anchor"></a>
+					<h3>id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/middleware/types.ts#L20">middleware/types.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/registry/types.ts#L21">registry/types.ts:21</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Sink that receives events</p>
+							<p>Id of the registry</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="source" class="tsd-anchor"></a>
-					<h3>source</h3>
-					<div class="tsd-signature tsd-kind-icon">source<span class="tsd-signature-symbol">:</span> <a href="sources_types.source.html" class="tsd-signature-type" data-tsd-kind="Interface">Source</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SourcePayload</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SourceEvent</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/middleware/types.ts#L16">middleware/types.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/registry/types.ts#L25">registry/types.ts:25</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Source that emits events</p>
+							<p>Name of the registry</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="transform" class="tsd-anchor"></a>
-					<h3>transform</h3>
-					<div class="tsd-signature tsd-kind-icon">transform<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="sources_types.event.html" class="tsd-signature-type" data-tsd-kind="Interface">Event</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SourceEvent</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SinkPayload</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="set" class="tsd-anchor"></a>
+					<h3>set</h3>
+					<div class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, key<span class="tsd-signature-symbol">: </span><a href="../modules/sources_types.html#eventtypes" class="tsd-signature-type" data-tsd-kind="Type alias">EventTypes</a>, value<span class="tsd-signature-symbol">: </span><a href="registry_types.eventobject.html" class="tsd-signature-type" data-tsd-kind="Interface">EventObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/middleware/types.ts#L24">middleware/types.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/rymnc/dodo-tradmon-engine/blob/2f750c9/modules/monitor/lib/registry/types.ts#L29">registry/types.ts:29</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -204,22 +190,28 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="sources_types.event.html" class="tsd-signature-type" data-tsd-kind="Interface">Event</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SourceEvent</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SinkPayload</span><span class="tsd-signature-symbol">&gt;</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, key<span class="tsd-signature-symbol">: </span><a href="../modules/sources_types.html#eventtypes" class="tsd-signature-type" data-tsd-kind="Type alias">EventTypes</a>, value<span class="tsd-signature-symbol">: </span><a href="registry_types.eventobject.html" class="tsd-signature-type" data-tsd-kind="Interface">EventObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<div class="tsd-comment tsd-typography">
 											<div class="lead">
-												<p>Function that transforms the source event to the sink payload</p>
+												<p>Sets the event, and real-life event for the specific address</p>
 											</div>
 										</div>
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>event: <a href="sources_types.event.html" class="tsd-signature-type" data-tsd-kind="Interface">Event</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SourceEvent</span><span class="tsd-signature-symbol">&gt;</span></h5>
+												<h5>address: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>key: <a href="../modules/sources_types.html#eventtypes" class="tsd-signature-type" data-tsd-kind="Type alias">EventTypes</a></h5>
+											</li>
+											<li>
+												<h5>value: <a href="registry_types.eventobject.html" class="tsd-signature-type" data-tsd-kind="Interface">EventObject</a></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SinkPayload</span><span class="tsd-signature-symbol">&gt;</span></h4>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
 									</li>
 								</ul>
 							</li>
@@ -246,7 +238,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/middleware_ethemail_types.html">middleware/eth<wbr>Email/types</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/middleware_types.html">middleware/types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -258,7 +250,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/registry_simple_types.html">registry/simple/types</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/registry_types.html">registry/types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -289,22 +281,25 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="registry_types.eventobject.html" class="tsd-kind-icon">Event<wbr>Object</a>
+					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="middleware_types.middleware.html" class="tsd-kind-icon">Middleware</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
+						<a href="registry_types.registry.html" class="tsd-kind-icon">Registry</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="middleware_types.middleware.html#run" class="tsd-kind-icon">run</a>
+								<a href="registry_types.registry.html#get" class="tsd-kind-icon">get</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="middleware_types.middleware.html#sink" class="tsd-kind-icon">sink</a>
+								<a href="registry_types.registry.html#id" class="tsd-kind-icon">id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="middleware_types.middleware.html#source" class="tsd-kind-icon">source</a>
+								<a href="registry_types.registry.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="middleware_types.middleware.html#transform" class="tsd-kind-icon">transform</a>
+								<a href="registry_types.registry.html#set" class="tsd-kind-icon">set</a>
 							</li>
 						</ul>
 					</li>

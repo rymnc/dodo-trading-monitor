@@ -4,7 +4,7 @@
   "description": "Trading Monitor for DodoDex",
   "main": "index.js",
   "scripts": {
-    "test": "npx ts-node test/topToBottom.ts",
+    "test": "REDIS_HOST=localhost REDIS_PORT=6379 npx ts-node test/topToBottom.ts",
     "docgen": "yarn workspace @dodo/trading-monitor docgen && mv modules/monitor/docs/ docs && echo -ne 'docs.rymnc.com' > docs/CNAME"
   },
   "private": true,

@@ -1,8 +1,11 @@
 import { EventTypes } from "../../sources/types";
 import { EventObject, Registry } from "../types";
+import { SimpleRegistryConstructor } from "./types";
 export declare class SimpleRegistry implements Registry {
+    id: number;
+    name: string;
     registry: Map<string, Map<EventTypes, EventObject>>;
-    constructor();
+    constructor(obj: SimpleRegistryConstructor);
     private hasAddress;
     private getEvent;
     private getEventMap;
