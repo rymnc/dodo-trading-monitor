@@ -49,9 +49,9 @@ services:
     build:
       context: modules
       dockerfile: ../docker/Dockerfile.ui
+      args:
+        - VITE_WEBSOCKET_URL=ws://0.0.0.0:5001/socket
     network_mode: host
-    environment:
-      - VITE_WEBSOCKET_URL=ws://0.0.0.0:5001/socket
     depends_on:
       - ws-engine
     ports:
