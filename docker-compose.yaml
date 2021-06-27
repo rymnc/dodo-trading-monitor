@@ -1,18 +1,5 @@
 version: "3.7"
 services:
-  postgres:
-    image: postgres:13.2-alpine
-    environment:
-      - POSTGRES_PASSWORD=test_db
-    ports:
-      - "5432:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    expose: [5432]
-
   redis:
     image: redis:latest
     ports:
@@ -57,3 +44,15 @@ services:
     depends_on:
       - ganache
       - redis
+
+  ui:
+    build:
+      context: modules
+      dockerfile: ../docker/Dockerfile.ui
+    network_mode: host
+    environment:
+      - VITE_WEBSOCKET_URL=ws://0.0.0.0:5001/socket
+    depends_on:
+      - ws-engine
+    ports:
+      - "3000:80"
