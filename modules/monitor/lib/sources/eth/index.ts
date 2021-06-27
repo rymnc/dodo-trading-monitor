@@ -7,7 +7,7 @@ import {
   CommonPayload,
   Constraints,
 } from "./types";
-import { Contract } from "ethers";
+import { BigNumber, Contract } from "ethers";
 import hash from "object-hash";
 import { isEqual, memoize } from "lodash";
 import { Registry } from "../../registry/types";
@@ -114,7 +114,7 @@ export class EthSource implements Source<SubscribePayload, any> {
       );
       return {
         eventField: eventField,
-        triggerValue: payload.triggerValue,
+        triggerValue: BigNumber.from(payload.triggerValue),
         type: payload.type,
       };
     } catch (e: any) {
@@ -157,7 +157,9 @@ export class EthSource implements Source<SubscribePayload, any> {
    * @returns boolean
    */
   constraintCheck(args: EthersEvent, constraints: Constraints): boolean {
-    if (args[constraints.eventField] > constraints.triggerValue) {
+    if (
+      BigNumber.from(args[constraints.eventField]).gte(constraints.triggerValue)
+    ) {
       return true;
     }
     return false;

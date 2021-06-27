@@ -85,7 +85,7 @@ class EthSource {
             const { eventField } = await this.registry.get(payload.address, payload.type);
             return {
                 eventField: eventField,
-                triggerValue: payload.triggerValue,
+                triggerValue: ethers_1.BigNumber.from(payload.triggerValue),
                 type: payload.type,
             };
         }
@@ -108,7 +108,7 @@ class EthSource {
         }
     }
     constraintCheck(args, constraints) {
-        if (args[constraints.eventField] > constraints.triggerValue) {
+        if (ethers_1.BigNumber.from(args[constraints.eventField]).gte(constraints.triggerValue)) {
             return true;
         }
         return false;

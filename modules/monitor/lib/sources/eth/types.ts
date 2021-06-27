@@ -4,10 +4,10 @@ import {
   InfuraWebSocketProvider,
   FallbackProvider,
 } from "@ethersproject/providers";
-import { BigNumberish, BigNumber } from "ethers";
+import { BigNumber, BigNumberish } from "ethers";
 import { eventTypes, EventTypes } from "../types";
 import { Result } from "@ethersproject/abi";
-import { isAddress, isBytesLike } from "ethers/lib/utils";
+import { isAddress } from "ethers/lib/utils";
 import { Registry } from "../../registry/types";
 
 /**
@@ -73,11 +73,18 @@ const hasAddress = (p: any) => "address" in p && isAddress(p.address);
 const hasAbi = (p: any) =>
   "abi" in p && Array.isArray(p.abi) && p.abi.length > 0;
 const hasEType = (p: any) => "type" in p && eventTypes.includes(p.type);
-const hasTriggerValue = (p: any) =>
-  "triggerValue" in p &&
-  (["bigint", "number"].includes(typeof p.triggerValue) ||
-    isBytesLike(p.triggerValue) ||
-    BigNumber.isBigNumber(p.triggerValue));
+const hasTriggerValue = (p: any) => {
+  if ("triggerValue" in p) {
+    try {
+      const casted = BigNumber.from(p.triggerValue);
+      return casted._isBigNumber;
+    } catch (e) {
+      return false;
+    }
+  }
+  return false;
+};
+
 const hasLabel = (p: any) =>
   "label" in p && typeof p.label === "string" && p.label.length > 0;
 

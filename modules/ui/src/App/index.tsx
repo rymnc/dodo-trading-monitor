@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import useWebSocket from 'react-use-websocket';
 import {EventTypes, eventTypes} from "./types"
-import {BigNumberish} from "@ethersproject/bignumber"
+import {BigNumber, BigNumberish} from "@ethersproject/bignumber"
 
 import Form from "react-bootstrap/Form"
 import { Button, Container } from 'react-bootstrap';
@@ -30,16 +30,18 @@ function App() {
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     if(readyState === 1) {
-      await sendJsonMessage({
+      const payload = {
         type: "subscribe",
         channel: {
           label: 'Demo',
-          triggerValue,
+          triggerValue:triggerValue,
           type,
           address,
           abi: JSON.parse(abi)
         }
-      })
+      }
+      console.log(payload)
+      await sendJsonMessage(payload)
     } else {
       console.log('not connected to socket yet')
     }
