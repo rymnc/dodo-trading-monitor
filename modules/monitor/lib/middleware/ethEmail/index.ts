@@ -5,7 +5,7 @@ import { EmailPayload } from "../../sinks/email/types";
 import { Middleware } from "../types";
 import { Event } from "../../sources/types";
 import { isAddress } from "@ethersproject/address";
-import { EthEmailConstructor } from "./types";
+import { EthEmailCombined, EthEmailConstructor } from "./types";
 
 /**
  * Eth-Email Monitor Class
@@ -143,3 +143,23 @@ export class EthEmail
     });
   }
 }
+
+export const createEthEmailMonitor = async (
+  obj: EthEmailCombined & { from: string; to: string }
+) => {
+  return new EthEmail({
+    source: new EthSource({
+      id: obj.id,
+      provider: obj.provider,
+      registry: obj.registry,
+    }),
+    sink: new EmailSink({
+      id: obj.id + 1,
+      email: obj.email,
+      host: obj.host,
+      pass: obj.pass,
+    }),
+    from: obj.from,
+    to: obj.to,
+  });
+};
