@@ -45,14 +45,16 @@ services:
       - ganache
       - redis
 
-  ui:
-    build:
-      context: modules
-      dockerfile: ../docker/Dockerfile.ui
-      args:
-        - VITE_WEBSOCKET_URL=ws://0.0.0.0:5001/socket
-    network_mode: host
-    depends_on:
-      - ws-engine
-    ports:
-      - "3000:80"
+      # Due to the websocket lib defaulting to wss, this container doesn't connect to dev env
+      # You can run the following command to start the ui
+      # `VITE_WEBSOCKET_URL=ws://localhost:5001/socket yarn workspace @dodo/trading-monitor-ui dev`
+  # ui:
+  #   build:
+  #     context: modules
+  #     dockerfile: ../docker/Dockerfile.ui
+  #     args:
+  #       - VITE_WEBSOCKET_URL=ws://0.0.0.0:5001/socket
+  #   ports: 
+  #     - "3000:80"
+  #   depends_on:
+  #     - ws-engine

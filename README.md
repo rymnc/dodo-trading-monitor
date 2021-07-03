@@ -42,3 +42,6 @@ Recording:
 <p align="center">
   <img width="600" src="https://rymnc.com/ca5db0df651c34eaaf160c23deb052dd/demo.svg">
 </p>
+
+
+Demo Video Link: https://youtu.be/RbZHo9oFY1E
