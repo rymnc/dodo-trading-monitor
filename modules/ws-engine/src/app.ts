@@ -1,4 +1,5 @@
 import { join } from "path";
+// @ts-ignore invalid import, but it's a plugin
 import AutoLoad, { AutoloadPluginOptions } from "fastify-autoload";
 import { FastifyPluginAsync } from "fastify";
 import {} from "fastify-websocket";

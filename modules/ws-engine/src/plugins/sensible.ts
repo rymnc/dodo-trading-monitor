@@ -1,4 +1,5 @@
 import fp from 'fastify-plugin'
+// @ts-ignore invalid import, but it's a plugin
 import sensible, { SensibleOptions } from 'fastify-sensible'
 
 /**
