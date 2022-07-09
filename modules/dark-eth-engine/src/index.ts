@@ -1,16 +1,26 @@
-import { config } from "dotenv";
-config();
-import { EthMq } from "./monitor";
+import { EthLibp2p } from "./monitor";
 import { memoize } from "lodash";
 import { EthSource } from "@dodo/trading-monitor";
 import {
   getProvider
 } from '@dodo/trading-monitor/dist/sources'
-import { MqSink } from "./monitor/mqSink";
+import { Libp2pSink } from "./monitor/libp2pSink";
+import { fromString as uint8ArrayFromString } from 'uint8arrays/from-string'
+
+import { RedisRegistry } from '../../eth-engine/src/monitor/redisRegistry'
 import { SubscribePayload, payloadValidator } from "@dodo/trading-monitor";
-import { getRedis } from "./monitor/redis";
-import { RedisRegistry } from "./monitor/redisRegistry";
+import { toString as uint8ArrayToString } from 'uint8arrays/to-string'
+
 import hash from "object-hash";
+
+//temp
+interface GossipSubMsg {
+  detail: {
+    data: Uint8Array
+    topic: string;
+
+  };
+}
 
 
 /**
@@ -31,18 +41,12 @@ const getEthSource = memoize(async (): Promise<EthSource> => {
 });
 
 /**
- * Memoizes the mq sink getter
+ * Memoizes the libp2p node getter
  */
-const getMqSink = memoize((): MqSink => {
-  if (process.env.REDIS_HOST && process.env.REDIS_PORT) {
-    return new MqSink({
-      id: 1,
-    });
-  } else {
-    throw new Error(
-      "[MqSink] REDIS_HOST and REDIS_PORT must be defined in env"
-    );
-  }
+const getLibp2pSink = memoize((): Libp2pSink<any> => {
+  return new Libp2pSink({
+    id: 1,
+  });
 });
 
 /**
@@ -52,41 +56,42 @@ async function main() {
   let source: EthSource;
   try {
     source = await getEthSource();
-  } catch (_) {
+  } catch (e) {
+    console.error(e);
     throw new Error("Could not connect to the Eth Node");
   }
 
-  const sink = getMqSink();
+  const sink = getLibp2pSink();
+  await sink.init();
   console.log("Initialized Source and Sink");
-  const ethMq = new EthMq({ source, sink });
-  const redisConnection = getRedis();
-  redisConnection.on("error", (e) => console.error(e));
+  const ethMq = new EthLibp2p({ source, sink });
   console.log("Initialized Redis Connection");
   try {
-    await redisConnection.subscribe("eth-engine-sub", "eth-engine-unsub");
+    sink.node.pubsub.subscribe("dark-eth-engine-sub");
   } catch (e) {
     console.error(e);
   }
   console.log("Subscribed to relevant channels");
-  redisConnection.on("message", async (channel: string, message: string) => {
+  sink.node.pubsub.on("message", async (message: GossipSubMsg) => {
     try {
-      const messageBody: SubscribePayload = JSON.parse(message);
+      const uint8ParsedString = uint8ArrayToString(message.detail.data);
+      const messageBody: SubscribePayload = JSON.parse(uint8ParsedString);
       /**
-       * Validate the message received via redis pubsub
+       * Validate the message received via gossipsub
        */
       if (payloadValidator(messageBody)) {
-        if (channel === "eth-engine-sub") {
+        if (message.detail.topic === "dark-eth-engine-sub") {
           console.log("Subscribing to :", messageBody.address);
           const toChannel = hash(messageBody);
           try {
             await ethMq.run(messageBody);
           } catch (e: any) {
-            const ephemeralClient = getRedis();
-            await ephemeralClient.publish(
+            await sink.node.pubsub.publish(
               toChannel,
-              JSON.stringify({ error: true, reason: e.message })
+              uint8ArrayFromString(
+                JSON.stringify({ error: true, reason: e.message })
+              )
             );
-            ephemeralClient.disconnect();
           }
         } else {
           ethMq.source.unsubscribe(messageBody);
@@ -101,5 +106,5 @@ async function main() {
 }
 
 main()
-  .then(() => console.log("Initialized Eth Engine"))
+  .then(() => console.log("Initialized Dark Eth Engine"))
   .catch((e) => console.error(e.message));

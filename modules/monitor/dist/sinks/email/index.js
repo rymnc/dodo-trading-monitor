@@ -30,7 +30,7 @@ class EmailSink {
         });
         this.id = obj.id;
         this.receipts = [];
-        this.transport = nodemailer_1.createTransport({
+        this.transport = (0, nodemailer_1.createTransport)({
             host: obj.host,
             port: process.env.NODE_ENV === "test" ? 587 : 465,
             secure: process.env.NODE_ENV === "test" ? false : true,

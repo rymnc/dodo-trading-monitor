@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EthEmail = void 0;
+exports.createEthEmailMonitor = exports.EthEmail = void 0;
+const sources_1 = require("../../sources");
+const sinks_1 = require("../../sinks");
 const address_1 = require("@ethersproject/address");
 class EthEmail {
     constructor(obj) {
@@ -54,7 +56,7 @@ class EthEmail {
     async transform(event) {
         const keys = Object.keys(event.details).filter((v) => Number.isNaN(Number(v)));
         const coerceToUrlIfAddress = (value) => {
-            if (address_1.isAddress(value)) {
+            if ((0, address_1.isAddress)(value)) {
                 return this.getAddressUrl(value);
             }
             return "";
@@ -104,3 +106,21 @@ class EthEmail {
     }
 }
 exports.EthEmail = EthEmail;
+const createEthEmailMonitor = async (obj) => {
+    return new EthEmail({
+        source: new sources_1.EthSource({
+            id: obj.id,
+            provider: obj.provider,
+            registry: obj.registry,
+        }),
+        sink: new sinks_1.EmailSink({
+            id: obj.id + 1,
+            email: obj.email,
+            host: obj.host,
+            pass: obj.pass,
+        }),
+        from: obj.from,
+        to: obj.to,
+    });
+};
+exports.createEthEmailMonitor = createEthEmailMonitor;

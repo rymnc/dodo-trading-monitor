@@ -1,3 +1,3 @@
-import { EthSource } from "./eth";
+import { EthSource, getProvider } from "./eth";
 
-export { EthSource };
+export { EthSource, getProvider };

@@ -262,3 +262,6 @@ export class EthSource implements Source<SubscribePayload, any> {
     return this.events;
   }
 }
+
+
+export * from './utils'

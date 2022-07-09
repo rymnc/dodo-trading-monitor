@@ -1,2 +1,2 @@
-import { EthSource } from "./eth";
-export { EthSource };
+import { EthSource, getProvider } from "./eth";
+export { EthSource, getProvider };

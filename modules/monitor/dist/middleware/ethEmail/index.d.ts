@@ -4,7 +4,7 @@ import { SubscribePayload } from "../../sources/eth/types";
 import { EmailPayload } from "../../sinks/email/types";
 import { Middleware } from "../types";
 import { Event } from "../../sources/types";
-import { EthEmailConstructor } from "./types";
+import { EthEmailCombined, EthEmailConstructor } from "./types";
 export declare class EthEmail implements Middleware<SubscribePayload, any, EmailPayload, any> {
     source: EthSource;
     sink: EmailSink;
@@ -15,3 +15,7 @@ export declare class EthEmail implements Middleware<SubscribePayload, any, Email
     transform(event: Event<any>): Promise<EmailPayload>;
     run(payload: SubscribePayload): void;
 }
+export declare const createEthEmailMonitor: (obj: EthEmailCombined & {
+    from: string;
+    to: string;
+}) => Promise<EthEmail>;

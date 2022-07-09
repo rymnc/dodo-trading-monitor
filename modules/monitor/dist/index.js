@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -10,11 +14,12 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SimpleRegistry = exports.EthEmail = exports.EthSource = exports.EmailSink = void 0;
+exports.SimpleRegistry = exports.EthEmail = exports.getProvider = exports.EthSource = exports.EmailSink = void 0;
 const sinks_1 = require("./sinks");
 Object.defineProperty(exports, "EmailSink", { enumerable: true, get: function () { return sinks_1.EmailSink; } });
 const sources_1 = require("./sources");
 Object.defineProperty(exports, "EthSource", { enumerable: true, get: function () { return sources_1.EthSource; } });
+Object.defineProperty(exports, "getProvider", { enumerable: true, get: function () { return sources_1.getProvider; } });
 const middleware_1 = require("./middleware");
 Object.defineProperty(exports, "EthEmail", { enumerable: true, get: function () { return middleware_1.EthEmail; } });
 const registry_1 = require("./registry");

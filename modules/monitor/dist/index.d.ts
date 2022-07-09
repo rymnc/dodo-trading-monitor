@@ -1,8 +1,8 @@
 import { EmailSink } from "./sinks";
-import { EthSource } from "./sources";
+import { EthSource, getProvider } from "./sources";
 import { EthEmail } from "./middleware";
 import { SimpleRegistry } from "./registry";
-export { EmailSink, EthSource, EthEmail, SimpleRegistry };
+export { EmailSink, EthSource, getProvider, EthEmail, SimpleRegistry };
 export * from "./middleware/types";
 export * from "./middleware/ethEmail/types";
 export * from "./sinks/types";

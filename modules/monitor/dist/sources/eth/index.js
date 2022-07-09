@@ -1,4 +1,18 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -49,7 +63,7 @@ class EthSource {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: lodash_1.memoize((address, abi) => {
+            value: (0, lodash_1.memoize)((address, abi) => {
                 return new ethers_1.Contract(address, abi || [], this.provider);
             })
         });
@@ -119,7 +133,7 @@ class EthSource {
     async subscribe(payload, callback) {
         try {
             const [commonPayload, constraints] = await Promise.all(this.getParams(payload));
-            const payloadHash = object_hash_1.default(commonPayload);
+            const payloadHash = (0, object_hash_1.default)(commonPayload);
             const isNew = this.handleCallbackPush(payloadHash, callback, constraints);
             const { address, abi, type } = payload;
             const { eventName } = commonPayload;
@@ -146,12 +160,12 @@ class EthSource {
     }
     async unsubscribe(payload) {
         const [commonPayload, constraints] = await Promise.all(this.getParams(payload));
-        const payloadHash = object_hash_1.default(commonPayload);
+        const payloadHash = (0, object_hash_1.default)(commonPayload);
         const callbackArray = this.callbacks.get(payloadHash);
         let popped = false;
         if (callbackArray) {
             const handlerIdx = callbackArray.findIndex((v) => {
-                return lodash_1.isEqual(constraints, v.constraints);
+                return (0, lodash_1.isEqual)(constraints, v.constraints);
             });
             if (handlerIdx !== -1) {
                 delete callbackArray[handlerIdx];
@@ -181,3 +195,4 @@ class EthSource {
     }
 }
 exports.EthSource = EthSource;
+__exportStar(require("./utils"), exports);

@@ -14,7 +14,7 @@ export declare class EthSource implements Source<SubscribePayload, any> {
     }>>;
     registry: Registry;
     constructor(obj: EthConstructor);
-    getContract: ((address: string, abi?: any[] | undefined) => Contract) & import("lodash").MemoizedFunction;
+    getContract: ((address: string, abi?: any[]) => Contract) & import("lodash").MemoizedFunction;
     setContract: (contract: Contract) => void;
     sanitizePayload(payload: SubscribePayload): Promise<CommonPayload>;
     getConstraints(payload: SubscribePayload): Promise<Constraints>;
@@ -25,3 +25,4 @@ export declare class EthSource implements Source<SubscribePayload, any> {
     unsubscribe(payload: SubscribePayload): Promise<boolean>;
     subscribedEvents(): Promise<EventReceipts[]>;
 }
+export * from './utils';
